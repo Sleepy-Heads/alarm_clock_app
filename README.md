@@ -30,11 +30,14 @@ An alarm clock app that requires a puzzle or math problem to turn it off. The pu
 
 **Required Must-have Stories**
 
-* User can make an alarm 
-* User can choose the puzzle and variety of difficulty to choose from
-* User can choose from a memory puzzle or math problem
-* User can turn off alarm using the puzzle
+* User can click "create an alarm"
+* User can create alarm
+* User can view their alarms
+* User can toggle alarm on or off
+* User can choose the puzzle and level of difficulty
+* User can solve the puzzle in order to turn off the alarm
 * User can edit their settings
+* User gets alarm pop-up, telling them to solve puzzle
 
 **Optional Nice-to-have Stories**
 
@@ -50,12 +53,17 @@ An alarm clock app that requires a puzzle or math problem to turn it off. The pu
 ### 2. Screen Archetypes
 
 * Stream
-   * User can make an alarm
-   * User can choose the puzzle and variety of difficulty to choose from
+   * User can click "create an alarm"
+   * User can view their alarms
+   * User can toggle alarm on or off
+   * User gets alarm pop-up, telling them to solve puzzle
    
 * Detail
-   * User can choose from a memory puzzle or math problem
-   * User can turn off alarm using the puzzle
+   * User can create alarm
+   * User can choose the puzzle and level of difficulty
+
+* Detail
+   * User can solve the puzzle in order to turn off the alarm
 
 * Settings
    * User can edit their settings
