@@ -75,16 +75,14 @@ An alarm clock app that requires a puzzle or math problem to turn it off. The pu
 **Flow Navigation** (Screen to Screen)
 
 * Home Screen
-   => Settings
-   => Alarm Detail
-
+   * Settings
+   * Alarm Detail
 
 * Alarm Notification Screen
-   => Puzzle screen
-
+   * Puzzle screen
 
 * Puzzle screen
-   => Home Screen
+   * Home Screen
 
 
 ## Wireframes
