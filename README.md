@@ -81,7 +81,6 @@ An alarm clock app that requires a puzzle or math problem to turn it off. The pu
    * Alarm Detail
 
 ## Wireframes
-[Add picture of your hand sketched wireframes in this section]
 <img src="YOUR_WIREFRAME_IMAGE_URL" width=600>
 
 ### [BONUS] Digital Wireframes & Mockups
