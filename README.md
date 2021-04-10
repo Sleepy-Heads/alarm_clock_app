@@ -89,6 +89,8 @@ An alarm clock app that requires a puzzle or math problem to turn it off. The pu
 
 ### [BONUS] Interactive Prototype
 <img src='http://g.recordit.co/071Mwnjz57.gif' width='' alt='Interactive Prototype' />
+
+
 ## Schema 
 [This section will be completed in Unit 9]
 ### Models
