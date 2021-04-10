@@ -74,9 +74,16 @@ An alarm clock app that requires a puzzle or math problem to turn it off. The pu
 
 **Flow Navigation** (Screen to Screen)
 
-* Home
-   * Settings
-   * Alarm Detail
+* Home Screen
+   => Settings
+   => Alarm Detail
+
+* Alarm Notification Screen
+   => Puzzle screen
+
+* Puzzle screen
+   => Home Screen
+
 
 ## Wireframes
 <img src="https://github.com/Sleepy-Heads/alarm_clock_app/files/6290639/AlarmAppWireframe.pdf" width=600>
