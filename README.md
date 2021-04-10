@@ -1,9 +1,9 @@
-# alarm_clock_app
+
 
 Original App Design Project - README Template
 ===
 
-# APP_NAME_HERE
+# Alarm Clock App (Name Pending)
 
 ## Table of Contents
 1. [Overview](#Overview)
