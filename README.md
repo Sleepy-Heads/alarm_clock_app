@@ -78,8 +78,10 @@ An alarm clock app that requires a puzzle or math problem to turn it off. The pu
    => Settings
    => Alarm Detail
 
+
 * Alarm Notification Screen
    => Puzzle screen
+
 
 * Puzzle screen
    => Home Screen
