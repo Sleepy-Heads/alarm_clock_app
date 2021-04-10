@@ -65,8 +65,6 @@ An alarm clock app that requires a puzzle or math problem to turn it off. The pu
 **Tab Navigation** (Tab to Screen)
 
 * Home - where the alarms live
-* [fill out your second tab]
-* [fill out your third tab]
 
 **Flow Navigation** (Screen to Screen)
 
