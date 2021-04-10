@@ -85,7 +85,7 @@ An alarm clock app that requires a puzzle or math problem to turn it off. The pu
 <img src="YOUR_WIREFRAME_IMAGE_URL" width=600>
 
 ### [BONUS] Digital Wireframes & Mockups
-<img src="https://media.discordapp.net/attachments/830466340887330816/830518532873125898/8951376c8780d1d529fc7c1ef2920fc2.png" width=600>
+<img src="https://media.discordapp.net/attachments/830466340887330816/830518532873125898/8951376c8780d1d529fc7c1ef2920fc2.png" width=400>
 
 ### [BONUS] Interactive Prototype
 <img src='http://g.recordit.co/071Mwnjz57.gif' width='' alt='Interactive Prototype' />
