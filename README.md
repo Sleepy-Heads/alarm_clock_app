@@ -86,9 +86,6 @@ An alarm clock app that requires a puzzle or math problem to turn it off. The pu
 
 
 ## Wireframes
-<img src="https://github.com/Sleepy-Heads/alarm_clock_app/files/6331618/wireframeImg.pdf" width=400>
-
-## Tets
 ![Imgur Image](https://i.imgur.com/3MXUtvC.png)
 
 ### [BONUS] Digital Wireframes & Mockups
