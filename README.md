@@ -97,7 +97,7 @@ An alarm clock app that requires a puzzle or math problem to turn it off. The pu
 
 ## Schema 
 
-###Models
+### Models
 
 #### Alarm
 
