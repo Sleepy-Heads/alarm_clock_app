@@ -104,9 +104,7 @@ name | String | The name for the alarm
 time | DateTime | The time for the alarm to go off
 flicker | Boolean | Whether an alarm is on or off
 repeat | Array of Booleans | Whether to repeat the alarm and on what days
-
 puzzle | Pointer to Puzzle | Type of puzzle user wants to solve
-
 edit | Boolean | Whether we are on the edit page or not
 
 
@@ -114,9 +112,7 @@ Model: Puzzle
 
 Property  | Type | Description
 ------------ | ------- | --------------|
-
 type | Array | What type of puzzle they will solve
-
 difficulty | Array | What difficulty the puzzle will be
 
 
