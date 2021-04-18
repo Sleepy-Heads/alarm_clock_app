@@ -96,7 +96,10 @@ An alarm clock app that requires a puzzle or math problem to turn it off. The pu
 
 
 ## Schema 
-Model: Alarm
+
+###Models
+
+#### Alarm
 
 Property  | Type | Description
 ------------ | ------- | --------------|
@@ -108,7 +111,7 @@ puzzle | Pointer to Puzzle | Type of puzzle user wants to solve
 edit | Boolean | Whether we are on the edit page or not
 
 
-Model: Puzzle
+#### Puzzle
 
 Property  | Type | Description
 ------------ | ------- | --------------|
