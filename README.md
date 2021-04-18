@@ -118,9 +118,6 @@ Property  | Type | Description
 type | Array | What type of puzzle they will solve
 difficulty | Array | What difficulty the puzzle will be
 
-
-### Models
-[Add table of models]
 ### Networking
 - [Add list of network requests by screen ]
 - [Create basic snippets for each Parse network request]
