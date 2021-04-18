@@ -96,12 +96,29 @@ An alarm clock app that requires a puzzle or math problem to turn it off. The pu
 
 
 ## Schema 
-[This section will be completed in Unit 9]
+Model: Alarm
 
-Test | Test 2
------|-------
-Hello| Hello 2
-Bye | Bye 2
+Property  | Type | Description
+------------ | ------- | --------------|
+name | String | The name for the alarm
+time | DateTime | The time for the alarm to go off
+flicker | Boolean | Whether an alarm is on or off
+repeat | Array of Booleans | Whether to repeat the alarm and on what days
+
+puzzle | Pointer to Puzzle | Type of puzzle user wants to solve
+
+edit | Boolean | Whether we are on the edit page or not
+
+
+Model: Puzzle
+
+Property  | Type | Description
+------------ | ------- | --------------|
+
+type | Array | What type of puzzle they will solve
+
+difficulty | Array | What difficulty the puzzle will be
+
 
 ### Models
 [Add table of models]
