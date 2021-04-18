@@ -97,6 +97,12 @@ An alarm clock app that requires a puzzle or math problem to turn it off. The pu
 
 ## Schema 
 [This section will be completed in Unit 9]
+
+Test | Test 2
+-----|-------
+Hello| Hello 2
+Bye | Bye 2
+
 ### Models
 [Add table of models]
 ### Networking
