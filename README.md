@@ -123,20 +123,18 @@ difficulty | Array | What difficulty the puzzle will be
 * Edit Alarm Screen
 * Solve Alarm Screen
    * (Read/GET) Query one math equation where the difficulty is the same as alarms and the answer to the math equation
-   ```
-   let query = PFQuery(className:"MathEquation")
-query.whereKey("difficulty", equalTo: currentDifficulty)
-query.findObjectsInBackground { (mathequations: [PFObject]?, error: Error?) in
-    if let error = error {
-        // Log details of the failure
-        print(error.localizedDescription)
-    } else if let mathequations = mathequations {
-        print("Successfully retrieved \(mathequations.question) and \(mathequations.answer).")
-        // TODO: Do something with math equations
-    }
-}
-```
-
+  ```
+  let query = PFQuery(className:"MathEquation")
+  query.whereKey("difficulty", equalTo: currentDifficulty)
+  query.findObjectsInBackground { (mathequations: [PFObject]?, error: Error?) in
+      if let error = error {
+          // Log details of the failure
+          print(error.localizedDescription)
+      } else if let mathequations = mathequations {
+          print("Successfully retrieved \(mathequations.question) and \(mathequations.answer).")
+          // TODO: Do something with math equations
+      }
+  }
 * Settings Screen
 
 - [Create basic snippets for each Parse network request]
