@@ -14,7 +14,6 @@ Original App Design Project - README Template
 An alarm clock app that requires a puzzle or math problem to turn it off. The purpose of this app is to wake the brain up a bit so you don't just hit snooze and go back to bed.
 
 ### App Evaluation
-[Evaluation of your app across the following attributes]
 - **Category:** Productivity / Lifestyle / Health & Fitness
 - **Mobile:** Mobile is essential for the location feature. App uses audio from alarm, and the camera
 - **Story:** Tries to enable users to wake up more effectively
