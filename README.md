@@ -123,7 +123,7 @@ difficulty | Array | What difficulty the puzzle will be
 * Edit Alarm Screen
 * Solve Alarm Screen
    * (Read/GET) Query one math equation where the difficulty is the same as alarms and the answer to the math equation
-  ```
+  ```swift
   let query = PFQuery(className:"MathEquation")
   query.whereKey("difficulty", equalTo: currentDifficulty)
   query.findObjectsInBackground { (mathequations: [PFObject]?, error: Error?) in
