@@ -135,6 +135,7 @@ difficulty | Array | What difficulty the puzzle will be
           // TODO: Do something with math equations
       }
   }
+  ```
 * Settings Screen
 
 - [Create basic snippets for each Parse network request]
