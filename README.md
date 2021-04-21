@@ -119,6 +119,11 @@ type | Array | What type of puzzle they will solve
 difficulty | Array | What difficulty the puzzle will be
 
 ### Networking
-- [Add list of network requests by screen ]
+* Home Screen
+* Edit Alarm Screen
+* Solve Alarm Screen
+   * (Read/GET) Query one math equation where the difficulty is the same as alarms and the answer to the math equation
+* Settings Screen
+
 - [Create basic snippets for each Parse network request]
 - [OPTIONAL: List endpoints if using existing API such as Yelp]
