@@ -136,3 +136,5 @@ difficulty | Array | What difficulty the puzzle will be
   }
   ```
 * Settings Screen
+
+
