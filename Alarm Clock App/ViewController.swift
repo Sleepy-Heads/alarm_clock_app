@@ -13,8 +13,6 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
     }
-    
-    // Testing if cloned the repo successfully
-    // my comment
+
 }
 
