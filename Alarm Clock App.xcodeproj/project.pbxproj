@@ -15,6 +15,9 @@
 		D0E912072637285400A55629 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D0E912052637285400A55629 /* LaunchScreen.storyboard */; };
 		D0E912122637285400A55629 /* Alarm_Clock_AppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E912112637285400A55629 /* Alarm_Clock_AppTests.swift */; };
 		D0E9121D2637285400A55629 /* Alarm_Clock_AppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E9121C2637285400A55629 /* Alarm_Clock_AppUITests.swift */; };
+		D0F5F44F2639CAE6009700EA /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0F5F44E2639CAE6009700EA /* SettingsViewController.swift */; };
+		D0F5F4512639CC0C009700EA /* SolveAlarmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0F5F4502639CC0C009700EA /* SolveAlarmViewController.swift */; };
+		D0F5F4532639CC3C009700EA /* EditAlarmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0F5F4522639CC3C009700EA /* EditAlarmViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +52,9 @@
 		D0E912182637285400A55629 /* Alarm Clock AppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Alarm Clock AppUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0E9121C2637285400A55629 /* Alarm_Clock_AppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alarm_Clock_AppUITests.swift; sourceTree = "<group>"; };
 		D0E9121E2637285400A55629 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D0F5F44E2639CAE6009700EA /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		D0F5F4502639CC0C009700EA /* SolveAlarmViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SolveAlarmViewController.swift; sourceTree = "<group>"; };
+		D0F5F4522639CC3C009700EA /* EditAlarmViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAlarmViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +112,9 @@
 				D0E912032637285400A55629 /* Assets.xcassets */,
 				D0E912052637285400A55629 /* LaunchScreen.storyboard */,
 				D0E912082637285400A55629 /* Info.plist */,
+				D0F5F44E2639CAE6009700EA /* SettingsViewController.swift */,
+				D0F5F4502639CC0C009700EA /* SolveAlarmViewController.swift */,
+				D0F5F4522639CC3C009700EA /* EditAlarmViewController.swift */,
 			);
 			path = "Alarm Clock App";
 			sourceTree = "<group>";
@@ -261,6 +270,9 @@
 				D0E911FF2637285300A55629 /* ViewController.swift in Sources */,
 				D0E911FB2637285300A55629 /* AppDelegate.swift in Sources */,
 				D0E911FD2637285300A55629 /* SceneDelegate.swift in Sources */,
+				D0F5F4512639CC0C009700EA /* SolveAlarmViewController.swift in Sources */,
+				D0F5F4532639CC3C009700EA /* EditAlarmViewController.swift in Sources */,
+				D0F5F44F2639CAE6009700EA /* SettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
