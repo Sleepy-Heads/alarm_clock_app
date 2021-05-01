@@ -27,8 +27,8 @@ An alarm clock app that requires a puzzle or math problem to turn it off. The pu
 
 **Required Must-have Stories**
 
-- [ ] User can click "create an alarm"
-- [ ] User can create alarm
+- [X] User can click "create an alarm"
+- [X] User can create alarm
 - [ ] User can view their alarms
 - [ ] User can toggle alarm on or off
 - [ ] User can choose the puzzle and level of difficulty
