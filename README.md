@@ -15,7 +15,7 @@ An alarm clock app that requires a puzzle or math problem to turn it off. The pu
 
 ## Sprint 1
 
-- Finished 2 out of our 8 required user stories
+- Finished 2 out of our total 8 required user stories as planned.
 
 - Users can now click the "create an alarm" button to take them to the Edit Alarm Screen. In the Edit Alarm screen they can set the label name, time, am or pm, and which days to play the alarm!
 
