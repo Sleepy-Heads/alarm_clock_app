@@ -13,6 +13,14 @@ Original App Design Project - README Template
 ### Description
 An alarm clock app that requires a puzzle or math problem to turn it off. The purpose of this app is to wake the brain up a bit so you don't just hit snooze and go back to bed.
 
+## Sprint 1
+
+- Finished 2 out of our 8 required user stories
+
+- Users can now click the "create an alarm" button to take them to the Edit Alarm Screen. In the Edit Alarm screen they can set the label name, time, am or pm, and which days to play the alarm!
+
+<img src='http://g.recordit.co/fESuVzOXtz.gif' width='' alt='Interactive Prototype' />
+
 ### App Evaluation
 - **Category:** Productivity / Lifestyle / Health & Fitness
 - **Mobile:** Mobile is essential for the location feature. App uses audio from alarm, and the camera
@@ -92,7 +100,6 @@ An alarm clock app that requires a puzzle or math problem to turn it off. The pu
 
 ### [BONUS] Interactive Prototype
 <img src='http://g.recordit.co/071Mwnjz57.gif' width='' alt='Interactive Prototype' />
-
 
 ## Schema 
 
