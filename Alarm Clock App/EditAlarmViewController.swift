@@ -23,6 +23,8 @@ class EditAlarmViewController: UIViewController {
     @IBOutlet weak var friButton: UIButton!
     @IBOutlet weak var satButton: UIButton!
     
+    var alarmsEditScreen : [Alarm] = []
+    
     var daySun = false
     var dayMon = false
     var dayTue = false
@@ -44,24 +46,30 @@ class EditAlarmViewController: UIViewController {
         let name = alarmNametxt.text!
         print (name as Any)
         
-        let atime = timetxt.text!
+        let time = timetxt.text!
         //print (atime as Any)
         
         let sun = amPmControl.selectedSegmentIndex
-        if sun == 0{
-            print (atime + " AM")
-        }else{
-            print(atime + " PM")
+        if sun == 0 {
+            print (time + " AM")
+        } else {
+            print(time + " PM")
         }
-        
+
         var alarmWeek = [daySun, dayMon, dayTue, dayWed, dayThur, dayFri, daySat]
         
-        print (alarmWeek) 
-            
+        print (alarmWeek)
+        
+        // currentGame = Game(word: newWord, incorrectMovesRemaining: incorrectMovesAllowed)
+        
+        let alarm = Alarm(alarmName: name, alarmTime: time)
+        alarmsEditScreen.append(alarm)
+        
+        dismiss(animated: true, completion: nil)
     }
     
     @IBAction func onCancel(_ sender: Any) {
-        dismiss(animated: true, completion: nil) //this should just cancel edit alarm, and go back to home screen
+        dismiss(animated: true, completion: nil) // this should just cancel edit alarm, and go back to home screen
     }
     
     @IBAction func sunSwitch(_ sender: Any) {
@@ -135,17 +143,14 @@ class EditAlarmViewController: UIViewController {
         print(daySat)
     }
     
-    
-    
-    
-    /*
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
+        let ViewController = segue.destination as? ViewController
+        ViewController?.alarmsHomeScreen = alarmsEditScreen
     }
-    */
 
 }

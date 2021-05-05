@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -21,6 +21,8 @@
 		D0F5F44F2639CAE6009700EA /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0F5F44E2639CAE6009700EA /* SettingsViewController.swift */; };
 		D0F5F4512639CC0C009700EA /* SolveAlarmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0F5F4502639CC0C009700EA /* SolveAlarmViewController.swift */; };
 		D0F5F4532639CC3C009700EA /* EditAlarmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0F5F4522639CC3C009700EA /* EditAlarmViewController.swift */; };
+		FE819DF826431D1500167199 /* AlarmCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE819DF726431D1500167199 /* AlarmCell.swift */; };
+		FEFA1C6726432645000C7892 /* Alarm.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEFA1C6626432645000C7892 /* Alarm.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,6 +69,8 @@
 		D0F5F4502639CC0C009700EA /* SolveAlarmViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SolveAlarmViewController.swift; sourceTree = "<group>"; };
 		D0F5F4522639CC3C009700EA /* EditAlarmViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAlarmViewController.swift; sourceTree = "<group>"; };
 		DE1EEED467DD35367B456636 /* Pods_Alarm_Clock_App_Alarm_Clock_AppUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Alarm_Clock_App_Alarm_Clock_AppUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		FE819DF726431D1500167199 /* AlarmCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmCell.swift; sourceTree = "<group>"; };
+		FEFA1C6626432645000C7892 /* Alarm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alarm.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,7 +111,6 @@
 				84A5AF4FB2D41B372FE86B9B /* Pods-Alarm Clock AppTests.debug.xcconfig */,
 				6B330CCD9031173D9F0698D6 /* Pods-Alarm Clock AppTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -149,7 +152,9 @@
 				D0E911FA2637285300A55629 /* AppDelegate.swift */,
 				D0E911FC2637285300A55629 /* SceneDelegate.swift */,
 				D0E911FE2637285300A55629 /* ViewController.swift */,
+				FEFA1C6626432645000C7892 /* Alarm.swift */,
 				D0E912002637285300A55629 /* Main.storyboard */,
+				FE819DF726431D1500167199 /* AlarmCell.swift */,
 				D0E912032637285400A55629 /* Assets.xcassets */,
 				D0E912052637285400A55629 /* LaunchScreen.storyboard */,
 				D0E912082637285400A55629 /* Info.plist */,
@@ -189,6 +194,7 @@
 				D0E911F32637285300A55629 /* Sources */,
 				D0E911F42637285300A55629 /* Frameworks */,
 				D0E911F52637285300A55629 /* Resources */,
+				22D8E3EA603CFE6BB9B098AB /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -226,6 +232,7 @@
 				D0E912142637285400A55629 /* Sources */,
 				D0E912152637285400A55629 /* Frameworks */,
 				D0E912162637285400A55629 /* Resources */,
+				78E9986BAFD2C2A909CF9653 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -307,6 +314,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		22D8E3EA603CFE6BB9B098AB /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Alarm Clock App/Pods-Alarm Clock App-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Alarm Clock App/Pods-Alarm Clock App-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Alarm Clock App/Pods-Alarm Clock App-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		29E2D5CD9AC06C4F5120973B /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -327,6 +351,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		78E9986BAFD2C2A909CF9653 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Alarm Clock App-Alarm Clock AppUITests/Pods-Alarm Clock App-Alarm Clock AppUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Alarm Clock App-Alarm Clock AppUITests/Pods-Alarm Clock App-Alarm Clock AppUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Alarm Clock App-Alarm Clock AppUITests/Pods-Alarm Clock App-Alarm Clock AppUITests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		8024A1543C431772A2B89FE6 /* [CP] Check Pods Manifest.lock */ = {
@@ -383,6 +424,8 @@
 				D0E911FF2637285300A55629 /* ViewController.swift in Sources */,
 				D0E911FB2637285300A55629 /* AppDelegate.swift in Sources */,
 				D0E911FD2637285300A55629 /* SceneDelegate.swift in Sources */,
+				FEFA1C6726432645000C7892 /* Alarm.swift in Sources */,
+				FE819DF826431D1500167199 /* AlarmCell.swift in Sources */,
 				D0F5F4512639CC0C009700EA /* SolveAlarmViewController.swift in Sources */,
 				D0F5F4532639CC3C009700EA /* EditAlarmViewController.swift in Sources */,
 				D0F5F44F2639CAE6009700EA /* SettingsViewController.swift in Sources */,
