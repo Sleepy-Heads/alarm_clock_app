@@ -12,6 +12,7 @@ class AlarmCell: UITableViewCell {
     
     @IBOutlet weak var alarmTime: UILabel!
     @IBOutlet weak var alarmName: UILabel!
+    @IBOutlet weak var alarmPeriod: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()

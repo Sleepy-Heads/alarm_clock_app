@@ -39,33 +39,21 @@ class EditAlarmViewController: UIViewController {
         //repeatDays = MultiSelectSegmentedControl()
         //repeatDays.allowsMultipleSelection = true
         // Do any additional setup after loading the view.
+        
+        print("Array Size: ", alarmsEditScreen.count)
     }
     
     
     @IBAction func onDone(_ sender: Any) {
         let name = alarmNametxt.text!
-        print (name as Any)
-        
         let time = timetxt.text!
-        //print (atime as Any)
-        
         let sun = amPmControl.selectedSegmentIndex
-        if sun == 0 {
-            print (time + " AM")
-        } else {
-            print(time + " PM")
-        }
-
         var alarmWeek = [daySun, dayMon, dayTue, dayWed, dayThur, dayFri, daySat]
         
-        print (alarmWeek)
-        
-        // currentGame = Game(word: newWord, incorrectMovesRemaining: incorrectMovesAllowed)
-        
-        let alarm = Alarm(alarmName: name, alarmTime: time)
+        let alarm = Alarm(alarmName: name, alarmTime: time, alarmPeriod: sun, alarmDays: alarmWeek)
         alarmsEditScreen.append(alarm)
         
-        dismiss(animated: true, completion: nil)
+        //dismiss(animated: true, completion: nil) // this should just cancel edit alarm, and go back to home screen
     }
     
     @IBAction func onCancel(_ sender: Any) {
