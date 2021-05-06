@@ -106,6 +106,15 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         return cell
     }
     
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let delete = UIContextualAction(style: .destructive, title: "Delete") { (contextualAction, view, actionPerformed: (Bool) -> Void) in
+            self.alarmsHomeScreen.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .automatic)
+            actionPerformed(true)
+        }
+                
+        return UISwipeActionsConfiguration(actions: [delete])
+    }
     
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
