@@ -37,8 +37,8 @@ An alarm clock app that requires a puzzle or math problem to turn it off. The pu
 
 - [X] User can click "create an alarm"
 - [X] User can create alarm
-- [ ] User can view their alarms
-- [ ] User can toggle alarm on or off
+- [X] User can view their alarms
+- [X] User can toggle alarm on or off
 - [ ] User can choose the puzzle and level of difficulty
 - [ ] User gets alarm pop-up, telling them to solve puzzle
 - [ ] User can edit their settings
