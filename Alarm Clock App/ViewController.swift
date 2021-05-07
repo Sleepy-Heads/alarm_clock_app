@@ -98,12 +98,28 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             }
             cell.alarmName.text = alarm.alarmName + "," + days
         }
-                    
-//        for i in alarm.alarmDays {
-//
-//        }
+            
+        let switchView = UISwitch(frame: .zero)
+        
+        if(alarm.alarmToggle) {
+            switchView.setOn(true, animated: true)
+        } else {
+            switchView.setOn(false, animated: true)
+        }
+        
+        switchView.tag = indexPath.row
+        switchView.addTarget(self, action: #selector(self.switchChanged(_:)), for: .valueChanged)
+        cell.accessoryView = switchView
         
         return cell
+    }
+    
+    @objc func switchChanged(_ sender: UISwitch!) {
+        if(alarmsHomeScreen[sender.tag].alarmToggle){
+            alarmsHomeScreen[sender.tag].alarmToggle = false
+        } else {
+            alarmsHomeScreen[sender.tag].alarmToggle = true
+        }
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
