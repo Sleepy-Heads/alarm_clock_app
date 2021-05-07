@@ -12,4 +12,5 @@ struct Alarm {
     var alarmTime : String
     var alarmPeriod : Int
     var alarmDays : [Bool]
+    var alarmToggle : Bool
 }
