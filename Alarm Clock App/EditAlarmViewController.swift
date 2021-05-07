@@ -40,7 +40,6 @@ class EditAlarmViewController: UIViewController {
         //repeatDays.allowsMultipleSelection = true
         // Do any additional setup after loading the view.
         
-        print("Array Size: ", alarmsEditScreen.count)
     }
     
     
@@ -48,9 +47,10 @@ class EditAlarmViewController: UIViewController {
         let name = alarmNametxt.text!
         let time = timetxt.text!
         let sun = amPmControl.selectedSegmentIndex
-        var alarmWeek = [daySun, dayMon, dayTue, dayWed, dayThur, dayFri, daySat]
+        let week = [daySun, dayMon, dayTue, dayWed, dayThur, dayFri, daySat]
+        let toggle = true
         
-        let alarm = Alarm(alarmName: name, alarmTime: time, alarmPeriod: sun, alarmDays: alarmWeek)
+        let alarm = Alarm(alarmName: name, alarmTime: time, alarmPeriod: sun, alarmDays: week, alarmToggle: toggle)
         alarmsEditScreen.append(alarm)
         
         //dismiss(animated: true, completion: nil) // this should just cancel edit alarm, and go back to home screen
@@ -68,8 +68,8 @@ class EditAlarmViewController: UIViewController {
             daySun = true
             self.sunButton.backgroundColor = UIColor.lightGray
         }
-        print(daySun)
     }
+    
     @IBAction func monSwitch(_ sender: Any) {
         if (dayMon) {
             dayMon = false
@@ -78,8 +78,8 @@ class EditAlarmViewController: UIViewController {
             dayMon = true
             self.monButton.backgroundColor = UIColor.lightGray
         }
-        print(dayMon)
     }
+    
     @IBAction func tueSwitch(_ sender: Any) {
         if (dayTue) {
             dayTue = false
@@ -88,8 +88,8 @@ class EditAlarmViewController: UIViewController {
             dayTue = true
             self.tueButton.backgroundColor = UIColor.lightGray
         }
-        print(dayTue)
     }
+    
     @IBAction func wedSwitch(_ sender: Any) {
         if (dayWed) {
             dayWed = false
@@ -98,8 +98,8 @@ class EditAlarmViewController: UIViewController {
             dayWed = true
             self.wedButton.backgroundColor = UIColor.lightGray
         }
-        print(dayWed)
     }
+    
     @IBAction func thurSwitch(_ sender: Any) {
         if (dayThur) {
             dayThur = false
@@ -108,8 +108,8 @@ class EditAlarmViewController: UIViewController {
             dayThur = true
             self.thurButton.backgroundColor = UIColor.lightGray
         }
-        print(dayThur)
     }
+    
     @IBAction func friSwitch(_ sender: Any) {
         if (dayFri) {
             dayFri = false
@@ -118,8 +118,8 @@ class EditAlarmViewController: UIViewController {
             dayFri = true
             self.friButton.backgroundColor = UIColor.lightGray
         }
-        print(dayFri)
     }
+    
     @IBAction func satSwitch(_ sender: Any) {
         if (daySat) {
             daySat = false
@@ -128,7 +128,6 @@ class EditAlarmViewController: UIViewController {
             daySat = true
             self.satButton.backgroundColor = UIColor.lightGray
         }
-        print(daySat)
     }
     
     // MARK: - Navigation
