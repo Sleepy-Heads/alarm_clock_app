@@ -21,8 +21,6 @@ class EditAlarmViewController: UIViewController {
     @IBOutlet weak var friButton: UIButton!
     @IBOutlet weak var satButton: UIButton!
     
-    var alarmsEditScreen : [Alarm] = []
-    
     var daySun = false
     var dayMon = false
     var dayTue = false
@@ -43,11 +41,7 @@ class EditAlarmViewController: UIViewController {
         let dateFormatter = DateFormatter()
         dateFormatter.timeStyle = .short
         time = dateFormatter.string(from: timePicker.date)
-        print("You, selected \(time)")
-        
-        
     }
-    
     
     @IBAction func onDone(_ sender: Any) {
         let name = alarmNametxt.text != "" ? alarmNametxt.text! : "Alarm"
@@ -56,8 +50,7 @@ class EditAlarmViewController: UIViewController {
         amOrPm = String(time.suffix(2))
         time.removeLast(3)
         let alarm = Alarm(alarmName: name, alarmTime: time, alarmPeriod: amOrPm, alarmDays: week, alarmToggle: toggle)
-        alarmsEditScreen.append(alarm)
-        print(time)
+        Defaults.addAlarm(alarm: alarm)
     }
     
     @IBAction func onCancel(_ sender: Any) {
@@ -134,14 +127,16 @@ class EditAlarmViewController: UIViewController {
         }
     }
     
+    /*
+     
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
-        let ViewController = segue.destination as? ViewController
-        ViewController?.alarmsHomeScreen = alarmsEditScreen
     }
+    
+    */
 
 }

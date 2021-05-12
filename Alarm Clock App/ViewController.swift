@@ -11,8 +11,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     @IBOutlet weak var tableView: UITableView!
     
-    var alarmsHomeScreen : [Alarm] = []
-    
+    var alarmsHomeScreen = Defaults.getAlarmObjects()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -29,7 +29,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         self.tableView.reloadData()
     }
-
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return alarmsHomeScreen.count
     }
@@ -41,9 +41,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         cell.selectionStyle = .none
         cell.alarmTime.text = alarm.alarmTime
-        
         cell.alarmPeriod.text = alarm.alarmPeriod
-                
+    
         if(alarm.alarmDays.filter{$0}.count == 0){
             cell.alarmName.text = alarm.alarmName
         } else if(alarm.alarmDays.filter{$0}.count == 7) {
@@ -121,6 +120,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let delete = UIContextualAction(style: .destructive, title: "Delete") { (contextualAction, view, actionPerformed: (Bool) -> Void) in
             self.alarmsHomeScreen.remove(at: indexPath.row)
+            Defaults.deleteAlarmObject(index: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .automatic)
             actionPerformed(true)
         }
@@ -128,12 +128,16 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         return UISwipeActionsConfiguration(actions: [delete])
     }
     
+    /*
+     
+    // MARK: - Navigation
+     
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
-        let EditAlarmViewController = segue.destination as? EditAlarmViewController
-        EditAlarmViewController?.alarmsEditScreen = alarmsHomeScreen
     }
+     
+    */
 }
 
