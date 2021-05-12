@@ -42,11 +42,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         cell.selectionStyle = .none
         cell.alarmTime.text = alarm.alarmTime
         
-        if(alarm.alarmPeriod == 0) {
-            cell.alarmPeriod.text = "AM"
-        } else {
-            cell.alarmPeriod.text = "PM"
-        }
+        cell.alarmPeriod.text = alarm.alarmPeriod
                 
         if(alarm.alarmDays.filter{$0}.count == 0){
             cell.alarmName.text = alarm.alarmName

@@ -10,7 +10,7 @@ import Foundation
 struct Alarm {
     var alarmName : String
     var alarmTime : String
-    var alarmPeriod : Int
+    var alarmPeriod : String
     var alarmDays : [Bool]
     var alarmToggle : Bool
 }
