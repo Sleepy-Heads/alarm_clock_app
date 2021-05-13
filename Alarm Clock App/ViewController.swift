@@ -112,8 +112,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     @objc func switchChanged(_ sender: UISwitch!) {
         if(alarmsHomeScreen[sender.tag].alarmToggle){
             alarmsHomeScreen[sender.tag].alarmToggle = false
+            Defaults.updateAlarmObject(index: sender.tag, alarm: alarmsHomeScreen[sender.tag])
         } else {
             alarmsHomeScreen[sender.tag].alarmToggle = true
+            Defaults.updateAlarmObject(index: sender.tag, alarm: alarmsHomeScreen[sender.tag])
         }
     }
     
