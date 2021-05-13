@@ -12,6 +12,7 @@ struct Defaults {
     
     static func addAlarm(alarm : Alarm) {
         let alarmDic = ["name" : alarm.alarmName, "time" : alarm.alarmTime, "period" : alarm.alarmPeriod, "days" : alarm.alarmDays, "toggle" : alarm.alarmToggle] as [String : Any]
+        
         Defaults.alarms.append(alarmDic)
         UserDefaults.standard.setValue(Defaults.alarms, forKey: "alarms")
     }
@@ -24,6 +25,11 @@ struct Defaults {
         }
         
         return alarmObjects
+    }
+    
+    static func updateAlarmObject(index : Int, alarm : Alarm) {
+        Defaults.alarms[index] = ["name" : alarm.alarmName, "time" : alarm.alarmTime, "period" : alarm.alarmPeriod, "days" : alarm.alarmDays, "toggle" : alarm.alarmToggle] as [String : Any]
+        UserDefaults.standard.setValue(Defaults.alarms, forKey: "alarms")
     }
     
     static func deleteAlarmObject(index : Int) {
