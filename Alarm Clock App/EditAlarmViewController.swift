@@ -21,6 +21,15 @@ class EditAlarmViewController: UIViewController {
     @IBOutlet weak var friButton: UIButton!
     @IBOutlet weak var satButton: UIButton!
     
+    let difficultyOptions = ["Easy", "Normal", "Hard"]
+    let puzzleOptions = ["Math Equations", "Scrambled Word Sentence", "Scrambled Letter Sentence"]
+    var puzzleDifficultyPickerView = UIPickerView()
+    var puzzleTypePickerView = UIPickerView()
+    
+    @IBOutlet weak var puzzleTextField: UITextField!
+    @IBOutlet weak var difficultyTextField: UITextField!
+    
+    var alarmsEditScreen : [Alarm] = []
     var daySun = false
     var dayMon = false
     var dayTue = false
@@ -34,6 +43,19 @@ class EditAlarmViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        puzzleTextField.inputView = puzzleTypePickerView
+        difficultyTextField.inputView = puzzleDifficultyPickerView
+        
+        puzzleTextField.placeholder = "Select a puzzle"
+        difficultyTextField.placeholder = "Select the difficulty"
+        puzzleDifficultyPickerView.dataSource = self
+        puzzleDifficultyPickerView.delegate = self
+        puzzleTypePickerView.dataSource = self
+        puzzleTypePickerView.delegate = self
+
+        puzzleTypePickerView.tag = 1
+        puzzleDifficultyPickerView.tag = 2
         
     }
     
@@ -139,4 +161,46 @@ class EditAlarmViewController: UIViewController {
     
     */
 
+}
+
+extension EditAlarmViewController: UIPickerViewDataSource, UIPickerViewDelegate {
+
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        switch pickerView.tag {
+        case 1:
+            return puzzleOptions.count
+        case 2:
+            return difficultyOptions.count
+        default:
+            return 1
+        }
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        switch pickerView.tag {
+        case 1:
+            return puzzleOptions[row]
+        case 2:
+            return difficultyOptions[row]
+        default:
+            return "Data not found."
+        }
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        switch pickerView.tag {
+        case 1:
+            puzzleTextField.text = puzzleOptions[row]
+            puzzleTextField.resignFirstResponder()
+        case 2:
+            difficultyTextField.text = difficultyOptions[row]
+            difficultyTextField.resignFirstResponder()
+        default:
+            return
+        }
+    }
 }
