@@ -1,0 +1,6 @@
+framework module Pods_Alarm_Clock_App {
+  umbrella header "Pods-Alarm Clock App-umbrella.h"
+
+  export *
+  module * { export * }
+}
