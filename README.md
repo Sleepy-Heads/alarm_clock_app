@@ -17,6 +17,8 @@ An alarm clock app that requires a puzzle or math problem to turn it off. The pu
 
 - Finished 2 more of our total 8 required user stories as planned. (6/8 Completed)
 
+- Users will be asked for permission to recieve notifications on their first time opening the application.
+
 - Users can now choose alarm puzzles and difficulty. Users will get notifications for their alarms and can click the solve button.
 
 <img src='http://g.recordit.co/sYZD3qslKS.gif' width='' alt='Sprint 2' />
