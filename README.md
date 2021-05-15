@@ -15,11 +15,20 @@ An alarm clock app that requires a puzzle or math problem to turn it off. The pu
 
 ## Sprint 2
 
+- Finished 2 more of our total 8 required user stories as planned. (6/8 Completed)
+
+- Users can now choose alarm puzzles and difficulty. Users will get notifications for their alarms and can click the solve button.
+
+<img src='http://g.recordit.co/sYZD3qslKS.gif' width='' alt='Sprint 2' />
+
+## Sprint 2
+
 - Finished 2 more of our total 8 required user stories as planned. (4/8 Completed)
 
 - Users can now view the alarms they make on the Home Screen. Users can toggle the alarms on and off and delete the alarms as well by swiping them to the left.
 
 <img src='http://g.recordit.co/nWSuz1GSve.gif' width='' alt='Sprint 2' />
+
 
 ## Sprint 1
 
