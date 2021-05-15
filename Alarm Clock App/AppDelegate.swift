@@ -7,6 +7,7 @@
 
 import UIKit
 import UserNotifications
+import Parse
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -14,8 +15,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     private func requestNotificationAuthorization(application: UIApplication) {
         let center = UNUserNotificationCenter.current()
         let options : UNAuthorizationOptions = [.alert, .badge, .sound]
-        
-        print("is this running")
         
         center.requestAuthorization(options: options) { granted, error in
             if let error = error {
@@ -27,6 +26,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         requestNotificationAuthorization(application: application)
+        
+        let parseConfig = ParseClientConfiguration {
+                    $0.applicationId = "kfStOnaWAXNBPaf5TTW99bkmsN3zkQZ3aoc5XRoR" // <- UPDATE
+                    $0.clientKey = "QCSfoZC2UskYWY8Y0QVZNUcosWm13dlZAJo0MrdN" // <- UPDATE
+                    $0.server = "https://parseapi.back4app.com"
+            }
+            Parse.initialize(with: parseConfig)
+        
         return true
     }
 
