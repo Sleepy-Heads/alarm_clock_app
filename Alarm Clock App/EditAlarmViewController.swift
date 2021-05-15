@@ -71,7 +71,7 @@ class EditAlarmViewController: UIViewController {
         let toggle = true
         amOrPm = String(time.suffix(2))
         time.removeLast(3)
-        let alarm = Alarm(alarmName: name, alarmTime: time, alarmPeriod: amOrPm, alarmDays: week, alarmToggle: toggle)
+        let alarm = Alarm(alarmName: name, alarmTime: time, alarmPeriod: amOrPm, alarmDays: week, alarmToggle: toggle, alarmPuzzleType: puzzleTextField.text!, alarmPuzzleDiff: difficultyTextField.text!)
         Defaults.addAlarm(alarm: alarm)
     }
     

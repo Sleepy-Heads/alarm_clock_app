@@ -6,13 +6,15 @@
 //
 
 import UIKit
+import UserNotifications
 
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var tableView: UITableView!
     
     var alarmsHomeScreen = Defaults.getAlarmObjects()
-
+    private let notificationPublisher = NotificationPublisher()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -35,6 +37,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        print(alarmsHomeScreen)
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "AlarmCell") as! AlarmCell
         let alarm = alarmsHomeScreen[indexPath.row]
@@ -128,6 +132,15 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
                 
         return UISwipeActionsConfiguration(actions: [delete])
+    }
+    
+    @IBAction func testAlert(_ sender: Any) {
+        notificationPublisher.sendNotification(title: "Wake Up", subtitle: "7:00 AM", body: "Click here to solve puzzle and turn alarm off!", badge: 1, delayInterval: 5)
+        print("Button pressd")
+    }
+    
+    func solveAlarm(){
+          print("We are in the solve alarm")
     }
     
     /*

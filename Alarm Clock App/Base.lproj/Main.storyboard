@@ -271,6 +271,22 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Phy-ic-ish">
+                                <rect key="frame" x="29" y="818" width="37" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Notif."/>
+                                <connections>
+                                    <action selector="testAlert:" destination="BYZ-38-t0r" eventType="touchUpInside" id="14o-ST-wV2"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kUr-15-eoH">
+                                <rect key="frame" x="350" y="818" width="38" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Solve"/>
+                                <connections>
+                                    <segue destination="CUT-wu-AH4" kind="presentation" id="89s-tg-Hh9"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -286,10 +302,19 @@
         <!--Solve Alarm Screen-->
         <scene sceneID="DyV-KW-3Rw">
             <objects>
-                <viewController title="Solve Alarm Screen" id="CUT-wu-AH4" customClass="SolveAlarmViewController" customModule="Alarm_Clock_App" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Solve Alarm Screen" modalPresentationStyle="fullScreen" id="CUT-wu-AH4" customClass="SolveAlarmViewController" customModule="Alarm_Clock_App" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="JtX-n4-ToR">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="User will solve alarm here. Next Sprint." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y2y-Tz-vIp">
+                                <rect key="frame" x="61" y="268" width="293" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="gRm-3f-dkr"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>

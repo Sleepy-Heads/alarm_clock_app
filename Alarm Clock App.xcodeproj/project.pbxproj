@@ -21,6 +21,7 @@
 		D0F5F44F2639CAE6009700EA /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0F5F44E2639CAE6009700EA /* SettingsViewController.swift */; };
 		D0F5F4512639CC0C009700EA /* SolveAlarmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0F5F4502639CC0C009700EA /* SolveAlarmViewController.swift */; };
 		D0F5F4532639CC3C009700EA /* EditAlarmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0F5F4522639CC3C009700EA /* EditAlarmViewController.swift */; };
+		FE37CC98264F1EF200E1EAB7 /* NotificationPublisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE37CC97264F1EF200E1EAB7 /* NotificationPublisher.swift */; };
 		FE64E642264C8B7700BE7B54 /* Defaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE64E641264C8B7700BE7B54 /* Defaults.swift */; };
 		FE819DF826431D1500167199 /* AlarmCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE819DF726431D1500167199 /* AlarmCell.swift */; };
 		FEFA1C6726432645000C7892 /* Alarm.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEFA1C6626432645000C7892 /* Alarm.swift */; };
@@ -70,6 +71,7 @@
 		D0F5F4502639CC0C009700EA /* SolveAlarmViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SolveAlarmViewController.swift; sourceTree = "<group>"; };
 		D0F5F4522639CC3C009700EA /* EditAlarmViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAlarmViewController.swift; sourceTree = "<group>"; };
 		DE1EEED467DD35367B456636 /* Pods_Alarm_Clock_App_Alarm_Clock_AppUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Alarm_Clock_App_Alarm_Clock_AppUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		FE37CC97264F1EF200E1EAB7 /* NotificationPublisher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationPublisher.swift; sourceTree = "<group>"; };
 		FE64E641264C8B7700BE7B54 /* Defaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Defaults.swift; sourceTree = "<group>"; };
 		FE819DF726431D1500167199 /* AlarmCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmCell.swift; sourceTree = "<group>"; };
 		FEFA1C6626432645000C7892 /* Alarm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alarm.swift; sourceTree = "<group>"; };
@@ -152,6 +154,7 @@
 			isa = PBXGroup;
 			children = (
 				D0E911FA2637285300A55629 /* AppDelegate.swift */,
+				FE37CC97264F1EF200E1EAB7 /* NotificationPublisher.swift */,
 				D0E911FC2637285300A55629 /* SceneDelegate.swift */,
 				D0E911FE2637285300A55629 /* ViewController.swift */,
 				FEFA1C6626432645000C7892 /* Alarm.swift */,
@@ -391,6 +394,7 @@
 				FE64E642264C8B7700BE7B54 /* Defaults.swift in Sources */,
 				D0E911FF2637285300A55629 /* ViewController.swift in Sources */,
 				D0E911FB2637285300A55629 /* AppDelegate.swift in Sources */,
+				FE37CC98264F1EF200E1EAB7 /* NotificationPublisher.swift in Sources */,
 				D0E911FD2637285300A55629 /* SceneDelegate.swift in Sources */,
 				FEFA1C6726432645000C7892 /* Alarm.swift in Sources */,
 				FE819DF826431D1500167199 /* AlarmCell.swift in Sources */,
