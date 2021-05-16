@@ -9,13 +9,9 @@ import UIKit
 import Parse
 
 /*TODO :
-    - Make a note that decimal numbers have to be rounded to the second decimal place for "Math Equations" (ex. 85.546 -> 85.55)
-    - Add custom keyboard to allow for +/-, and commas
  */
 
-class SolveAlarmViewController: UIViewController {
-    
-    
+class SolveAlarmViewController: UIViewController, UITextViewDelegate {
     
     @IBOutlet weak var inputTextField: UITextView!
     @IBOutlet weak var displayLabel: UILabel!
@@ -29,11 +25,12 @@ class SolveAlarmViewController: UIViewController {
     var numberOfCorrectAnswers : Int = 0 //User must get 3 if difficulty = Easy ; 2 if difficulty = Normal ; 1 if difficulty = Hard
     var numberOfCorrectAnswersNeeded : Int = 0
     
-    var numOfSeconds : Double = 60
+    var numOfSeconds : Double = 30
     let submitButtonColor = UIColor(rgb: 0x8D733E)
     var submitButtonClicked : Bool = false
     var newButtonClicked : Bool = false
     var successfullySolvedAllPuzzles : Bool = false
+    var onStart : Bool = false
     
     let layer1 = CAShapeLayer()
     let layer0 = CAShapeLayer()
@@ -86,8 +83,15 @@ class SolveAlarmViewController: UIViewController {
                                                name: UIResponder.keyboardDidShowNotification,
                                                object: nil)
         
+        inputTextField.delegate = self
         inputTextField.becomeFirstResponder()
+        if difficultyLevel == "Hard" && puzzleType == "Math Equations" {
+            inputTextField.text = "Round fractional numbers to two decimal places..."
+            inputTextField.textColor = UIColor.lightGray
+            onStart = true
+        }
         
+
         //Setting Submit Button to display correctly upon load
         submitButton.setTitleColor(submitButtonColor, for: .normal)
         submitButton.setTitle("Submit", for: .normal)
@@ -107,6 +111,16 @@ class SolveAlarmViewController: UIViewController {
         
         //if puzzleType selected is "Math Equations" then call makeMathQuery(), else call makeSentenceQuery()
         puzzleType == "Math Equations" ? makeMathQuery(diff: difficultyLevel) : makeSentenceQuery(diff: difficultyLevel)
+    }
+    
+    
+    func textViewDidChange(_ textView: UITextView) {
+        if onStart {
+            inputTextField.textColor = .black
+            let inputtedText = inputTextField.text.suffix(1)
+            inputTextField.text = String(inputtedText)
+            onStart = false
+        }
     }
     
     @objc
@@ -163,7 +177,6 @@ class SolveAlarmViewController: UIViewController {
     }
     
     
-
     
     //*********************************************************************** Math Equations ************************************************************************
     
@@ -973,7 +986,4 @@ struct Stack {
         return topElement
     }
 }
-
-
-
 
