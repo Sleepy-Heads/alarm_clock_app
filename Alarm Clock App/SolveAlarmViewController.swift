@@ -8,8 +8,7 @@
 import UIKit
 import Parse
 
-/*TODO :
- */
+
 
 class SolveAlarmViewController: UIViewController, UITextViewDelegate {
     
