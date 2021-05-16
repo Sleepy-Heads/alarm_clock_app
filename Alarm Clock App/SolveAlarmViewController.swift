@@ -520,7 +520,6 @@ class SolveAlarmViewController: UIViewController, UITextViewDelegate {
                 }
             } while scrambledWord == randomWord
             
-            print("scrambledWord : \(scrambledWord)")
             let indexInSentence = sentence.range(of: randomWord)
             let completedSentence = sentence.replacingCharacters(in: indexInSentence!, with: scrambledWord)
             
@@ -564,7 +563,6 @@ class SolveAlarmViewController: UIViewController, UITextViewDelegate {
                 }
             } while scrambledWord2 == randomWord2
             
-            print("scrambledWord1 : \(scrambledWord1) ; scrambledWord2 : \(scrambledWord2)")
             let indexInSentence1 = sentence.range(of: randomWord1)
             let indexInSentence2 = sentence.range(of: randomWord2)
             var completedSentence = sentence.replacingCharacters(in: indexInSentence1!, with: scrambledWord1)
@@ -629,7 +627,6 @@ class SolveAlarmViewController: UIViewController, UITextViewDelegate {
                 }
             } while scrambledWord3 == randomWord3
             
-            print("scrambledWord1 : \(scrambledWord1) \n scrambledWord2 : \(scrambledWord2) \n scrambledWord3 : \(scrambledWord3)")
             let indexInSentence1 = sentence.range(of: randomWord1)
             let indexInSentence2 = sentence.range(of: randomWord2)
             let indexInSentence3 = sentence.range(of: randomWord3)
@@ -865,8 +862,6 @@ class SolveAlarmViewController: UIViewController, UITextViewDelegate {
             } else {
                 //answer is incorrect
                 toggleSubmitButton(for: "incorrect")
-                print("\(sentence)")
-                print("\(inputTextField.text!)")
                 
                 numberOfCorrectAnswers = (numberOfCorrectAnswers == 0) ? 0 : (numberOfCorrectAnswers - 1) //lowest possible value of numOfCorrectAnswers is 0
                 scoreLabel.text = "\(numberOfCorrectAnswers)/\(numberOfCorrectAnswersNeeded)"
