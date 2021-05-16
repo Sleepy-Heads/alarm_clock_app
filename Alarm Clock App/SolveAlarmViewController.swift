@@ -9,11 +9,10 @@ import UIKit
 import Parse
 
 /*TODO :
-    - Make sure PEMDAS is followed when computing equations
     - Make a note that decimal numbers have to be rounded to the second decimal place for "Math Equations" (ex. 85.546 -> 85.55)
-    - Apostrophes on sentences are still being weird, fix it
     - Add custom keyboard to allow for +/-, and commas
  */
+
 class SolveAlarmViewController: UIViewController {
     
     
@@ -22,16 +21,22 @@ class SolveAlarmViewController: UIViewController {
     @IBOutlet weak var displayLabel: UILabel!
     @IBOutlet weak var newButton: UIButton!
     @IBOutlet weak var submitButton: UIButton!
+    @IBOutlet weak var scoreLabel: UILabel!
     
     
-    let puzzleType = "Scrambled Word Sentence" // Three options: "Math Equations" ,  "Scrambled Word Sentence", "Scrambled Letter Sentence"
-    let difficultyLevel = "Easy" // Three options: "Easy" ,  "Normal", "Hard" ; difficulty level chosen by user ; should always start with capital letter
+    let puzzleType = "Math Equations" // Three options: "Math Equations" ,  "Scrambled Word Sentence", "Scrambled Letter Sentence"
+    let difficultyLevel = "Hard" // Three options: "Easy" ,  "Normal", "Hard" ; difficulty level chosen by user ; should always start with capital letter
     var numberOfCorrectAnswers : Int = 0 //User must get 3 if difficulty = Easy ; 2 if difficulty = Normal ; 1 if difficulty = Hard
-    var numOfSeconds : Double = 30
+    var numberOfCorrectAnswersNeeded : Int = 0
+    
+    var numOfSeconds : Double = 60
     let submitButtonColor = UIColor(rgb: 0x8D733E)
     var submitButtonClicked : Bool = false
     var newButtonClicked : Bool = false
-    var successfulSolve : Bool = false
+    var successfullySolvedAllPuzzles : Bool = false
+    
+    let layer1 = CAShapeLayer()
+    let layer0 = CAShapeLayer()
     
     //Math Equations
     var num1 : Int = 0
@@ -41,20 +46,23 @@ class SolveAlarmViewController: UIViewController {
     var symbol1 : String = ""
     var symbol2 : String = ""
     var symbol3 : String = ""
+    var openParenthesis1 = "("
+    var openParenthesis2 = "("
+    var closedParenthesis1 = ")"
+    var closedParenthesis2 = ")"
     var randomOperandIndex : Int = 0
     var randomOperatorIndex : Int = 0
     let easyArithmeticDifficultyId = "8XTOzojIhh"
     let normalArithmeticDifficultyId = "AFBlskbw6f"
     let hardArithmeticDifficultyId = "l7Mz6YPDS0"
+    var mathEquationString : String = ""
+    var mathEquationArray : [String] = []
     
     //Sentences
     var sentence : String = ""
     var scrambledLetterSentence : String = ""
     var scrambledWordSentence : String = ""
     var numOfWords : Int = 0
-    
-    let layer0 = CAShapeLayer()
-    let layer1 = CAShapeLayer()
     
     
     override func viewWillAppear(_ animated: Bool) {
@@ -65,64 +73,93 @@ class SolveAlarmViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        submitButton.setTitleColor(submitButtonColor, for: .normal)
-        submitButton.setTitle("Submit", for: .normal)
-        
+        //Choose which Keyboard to display & get height for display of inputTextField
         if puzzleType == "Math Equations" {
-            self.inputTextField.keyboardType = .decimalPad
+            self.inputTextField.keyboardType = .numbersAndPunctuation
         } else {
             //puzzleType == "Scrambled Word Sentence" or "Scrambled Letter Sentence"
             self.inputTextField.keyboardType = .alphabet
         }
+        
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(handle(keyboardShowNotification:)),
+                                               name: UIResponder.keyboardDidShowNotification,
+                                               object: nil)
+        
         inputTextField.becomeFirstResponder()
+        
+        //Setting Submit Button to display correctly upon load
+        submitButton.setTitleColor(submitButtonColor, for: .normal)
+        submitButton.setTitle("Submit", for: .normal)
+        
+        //Setting Score Label to display correctly upon load
+        switch difficultyLevel {
+        case "Easy":
+            numberOfCorrectAnswersNeeded = 3
+        case "Normal":
+            numberOfCorrectAnswersNeeded = 2
+        case "Hard":
+            numberOfCorrectAnswersNeeded = 1
+        default:
+            numberOfCorrectAnswersNeeded = 0
+        }
+        scoreLabel.text = "\(numberOfCorrectAnswers)/\(numberOfCorrectAnswersNeeded)"
         
         //if puzzleType selected is "Math Equations" then call makeMathQuery(), else call makeSentenceQuery()
         puzzleType == "Math Equations" ? makeMathQuery(diff: difficultyLevel) : makeSentenceQuery(diff: difficultyLevel)
     }
     
+    @objc
+    private func handle(keyboardShowNotification notification: Notification) {
+        if let userInfo = notification.userInfo,
+           //set up constraints for inputTextField to always end 5 points above top of keyboard
+            let keyboardRectangle = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect {
+            NSLayoutConstraint.activate([inputTextField.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -(keyboardRectangle.height) - 5 )])
+        }
+    }
+    
+    
     @objc func restartTimer() {
-        //----view did load
         //Lay down background stroke
-        let shapeLayerTop = UIBezierPath()
-        shapeLayerTop.move(to: CGPoint(x:(UIScreen.main.bounds.width)-20, y:60))
-        shapeLayerTop.addLine(to: CGPoint(x: 10, y: 60))
-        layer1.path = shapeLayerTop.cgPath
-        let myColor : UIColor = UIColor(rgb: 0x8D733E)
-        layer1.strokeColor = myColor.cgColor
-        layer1.lineWidth = 8
-        layer1.lineCap = CAShapeLayerLineCap.round
-        layer1.strokeEnd = (UIScreen.main.bounds.width)-20
-        self.view.layer.addSublayer(layer1)
-        
-        
-        //------view will appear
         let shapeLayerBottom = UIBezierPath()
         shapeLayerBottom.move(to: CGPoint(x:(UIScreen.main.bounds.width)-20, y:60))
         shapeLayerBottom.addLine(to: CGPoint(x: 10, y: 60))
         layer0.path = shapeLayerBottom.cgPath
-        layer0.strokeColor = UIColor.white.cgColor
+        let myColor : UIColor = UIColor(rgb: 0x8D733E)
+        layer0.strokeColor = myColor.cgColor
         layer0.lineWidth = 8
         layer0.lineCap = CAShapeLayerLineCap.round
-        layer0.strokeEnd = 0
+        layer0.strokeEnd = (UIScreen.main.bounds.width)-20
         self.view.layer.addSublayer(layer0)
         
-        if !successfulSolve {
+        //creation of white overlay stroke
+        let shapeLayerTop = UIBezierPath()
+        shapeLayerTop.move(to: CGPoint(x:(UIScreen.main.bounds.width)-20, y:60))
+        shapeLayerTop.addLine(to: CGPoint(x: 10, y: 60))
+        layer1.path = shapeLayerTop.cgPath
+        layer1.strokeColor = UIColor.white.cgColor
+        layer1.lineWidth = 8
+        layer1.lineCap = CAShapeLayerLineCap.round
+        layer1.strokeEnd = 0
+        self.view.layer.addSublayer(layer1)
+        
+        if !successfullySolvedAllPuzzles {
+            //if we user hasn't solved all the required puzzles yet, continue to reset animation
             let basicAnimation = CABasicAnimation(keyPath: "strokeEnd")
             basicAnimation.toValue = 1
             basicAnimation.duration = numOfSeconds
             basicAnimation.fillMode = CAMediaTimingFillMode.forwards
             basicAnimation.isRemovedOnCompletion = false
             basicAnimation.delegate = self
-            layer0.add(basicAnimation, forKey: "randomString1")
+            layer1.add(basicAnimation, forKey: "randomString1")
             
             let basicAnimation0 = CABasicAnimation(keyPath: "strokeEnd")
             basicAnimation0.toValue = 1
             basicAnimation0.duration = 1
             basicAnimation0.fillMode = CAMediaTimingFillMode.forwards
             basicAnimation0.isRemovedOnCompletion = false
-            layer1.add(basicAnimation0, forKey: "randomString2")
+            layer0.add(basicAnimation0, forKey: "randomString0")
         }
-        
     }
     
     
@@ -137,9 +174,9 @@ class SolveAlarmViewController: UIViewController {
      - returns: The math equation to be displayed
      
      # Notes: #
-     1. Easy - Returns an equation with 2 operators (choices being +,-) and 1 operand (choices being 1...50)
-     2.   Normal - Returns an equation with 3 operators (choices being +,-,*) and 2 operands (choices being 1...75)
-     3.   Hard- Returns an equation with 4 operators (choices being +,-,*,/) and 3 operands (choices being 1...100)
+     1. Easy - Returns an equation with 1 operator (choices being +,-) and 2 operands (choices being 1...50)
+     2.   Normal - Returns an equation with 2 operators (choices being +,-,*) and 3 operands (choices being 1...75)
+     3.   Hard- Returns an equation with 3 operators (choices being +,-,*,/) and 4 operands (choices being 1...100)
     */
     func makeMathQuery(diff difficulty: String) {
         let difficultyId : String
@@ -167,29 +204,98 @@ class SolveAlarmViewController: UIViewController {
                 self.num2 = operands[self.randomOperandIndex]
                 self.randomOperatorIndex = Int.random(in: 0..<operators.count)
                 self.symbol1 = operators[self.randomOperatorIndex]
+                
+                self.mathEquationArray = [String(self.num1), String(self.symbol1), String(self.num2)]
+                
+                for symbol in self.mathEquationArray {
+                    self.mathEquationString += symbol
+                    if symbol != String(self.num2) { self.mathEquationString += " " }
+                }
+                
+                self.displayLabel.text = "\(self.mathEquationString)"
 
-                self.displayLabel.text = "\(self.num1) \(self.symbol1) \(self.num2)"
-
+                
                 if (difficulty == "Normal") || (difficulty == "Hard") {
+                    //get more numbers and symbols
                     self.randomOperandIndex = Int.random(in: 0..<operands.count)
                     self.num3 = operands[self.randomOperandIndex]
                     self.randomOperatorIndex = Int.random(in: 0..<operators.count)
                     self.symbol2 = operators[self.randomOperatorIndex]
+                    
+                    //add random parentheses to equation before displaying
+                    self.mathEquationArray += [String(self.symbol2), String(self.num3)]
 
-                    self.displayLabel.text = "\(self.num1) \(self.symbol1) \(self.num2) \(self.symbol2) \(self.num3)"
+                    if difficulty == "Normal" {
+                        let possibleInsertionChoices = [0,2] //Possibilities for open parenthesis
+                        self.mathEquationArray.insert(self.openParenthesis1, at: possibleInsertionChoices[Int.random(in: 0...1)])
+                        if self.mathEquationArray[0] == self.openParenthesis1 {
+                            //insert closing parenthesis at index 4
+                            self.mathEquationArray.insert(self.closedParenthesis1, at: 4)
+                        } else {
+                            //open parenthesis is at index 2 ; insert closing parenthesis at end of array
+                            self.mathEquationArray.append(self.closedParenthesis1)
+                        }
+                    }
+                    
+                    self.mathEquationString = ""
+                    for symbol in self.mathEquationArray {
+                        if symbol == self.closedParenthesis1 { self.mathEquationString.removeLast() }
+                        self.mathEquationString += symbol
+                        //no spaces after last number, after open parentheses, or before closing parentheses
+                        if symbol != self.openParenthesis1 { self.mathEquationString += " " }
+                    }
+                    self.mathEquationString.removeLast() //remove extra space at end
+                    self.displayLabel.text = "\(self.mathEquationString)"
                 }
                 if difficulty == "Hard" {
                     self.randomOperandIndex = Int.random(in: 0..<operands.count)
                     self.num4 = operands[self.randomOperandIndex]
                     self.randomOperatorIndex = Int.random(in: 0..<operators.count)
                     self.symbol3 = operators[self.randomOperatorIndex]
-
-                    self.displayLabel.text = "\(self.num1) \(self.symbol1) \(self.num2) \(self.symbol2) \(self.num3) \(self.symbol3) \(self.num4)"
+                    
+                    //add random parentheses to equation before displaying
+                    self.mathEquationArray += [String(self.symbol3), String(self.num4)]
+                    
+                    let possibleInsertionChoices0 = [0,2,4]
+                    self.mathEquationArray.insert(self.openParenthesis1, at: possibleInsertionChoices0[Int.random(in: 0...2)])
+                    if self.mathEquationArray[0] == self.openParenthesis1 {
+                        //insert closing parenthesis at index 4, and new set of parentheses around remaining 2 numbers
+                        self.mathEquationArray.insert(self.closedParenthesis1, at: 4)
+                        self.mathEquationArray.insert(self.openParenthesis2, at: 6)
+                        self.mathEquationArray.append(self.closedParenthesis2)
+                    } else if self.mathEquationArray[2] == self.openParenthesis1 {
+                        //insert closing parenthesis at index 6
+                        self.mathEquationArray.insert(self.closedParenthesis1, at: 6)
+                    } else {
+                        //open parenthesis is at index 4 ; insert closing parenthesis at end of array
+                        self.mathEquationArray.append(self.closedParenthesis2)
+                    }
+                    
+                    self.mathEquationString = ""
+                    for symbol in self.mathEquationArray {
+                        if symbol == self.closedParenthesis1 { self.mathEquationString.removeLast() }
+                        self.mathEquationString += symbol
+                        if  (symbol != self.openParenthesis1) || (symbol != self.openParenthesis2) { self.mathEquationString += " " }
+                    }
+                    self.mathEquationString.removeLast() //remove extra space at end
+                    self.displayLabel.text = "\(self.mathEquationString)"
                 }
-
+                
+                self.mathEquationString = ""
             }
         }
     }
+    
+    func precedence(_ op: String) -> Int {
+        if(op == "+"||op == "-") {
+            return 1
+        }
+        if(op == "*"||op == "/") {
+            return 2
+        }
+        return 0
+    }
+     
     
     func compute(_ op1: Float,_ op2: Float,_ symbol : String) -> Float {
         switch symbol {
@@ -564,50 +670,173 @@ class SolveAlarmViewController: UIViewController {
         submitButtonClicked = true
         if puzzleType == "Math Equations" {
             var ans : Float
+            
+            var numbersStack = Stack()
+            var operatorsStack = Stack()
+            
+            if difficultyLevel == "Easy" {
+                ans = self.compute(Float(num1), Float(num2), symbol1)
+            } else if difficultyLevel == "Normal" {
+                //create infix expression
+                for element in self.mathEquationArray {
+                    if element == "(" {
+                        //push opening parentheses to operatorsStack
+                        operatorsStack.push(element)
+                    } else if (Int(element) != nil) {
+                        //push numbers to numbersStack
+                        numbersStack.push(element)
+                    } else if element == ")" {
+                        //solve upon encountering closing parentheses
+                        while !operatorsStack.isEmpty() && operatorsStack.peek() != "(" {
+                            let val2 = numbersStack.peek()
+                            _ = numbersStack.pop()
+                            
+                            let val1 = numbersStack.peek()
+                            _ = numbersStack.pop()
+                            
+                            let op = operatorsStack.peek()
+                            _ = operatorsStack.pop()
+                            
+                            numbersStack.push(String(compute(Float(val1)!, Float(val2)!, op)))
+                        }
+                        if !operatorsStack.isEmpty() {
+                            //pop opening brace
+                            _ = operatorsStack.pop()
+                        }
+                    } else {
+                        //current element is an operator
+                        // While top of 'operatorStack' has same or greater precedence to current element, which
+                        //is an operator. Apply operator on top of 'ops' to top two elements in values stack.
+                        while(!operatorsStack.isEmpty() && (precedence(operatorsStack.peek()) >= precedence(element))) {
+                            let val2 = numbersStack.peek();
+                            _ = numbersStack.pop();
+                             
+                            let val1 = numbersStack.peek();
+                            _ = numbersStack.pop();
+                             
+                            let op = operatorsStack.peek();
+                            _ = operatorsStack.pop();
+                             
+                            numbersStack.push(String(compute(Float(val1)!, Float(val2)!, op)))
+                        }
+                        // Push current element to operatorsStack
+                        operatorsStack.push(element)
+                    }
+                }
+                
+                // Entire expression has been parsed at this point, apply remaining ops to remaining values
+                while(!operatorsStack.isEmpty()){
+                    let val2 = numbersStack.peek()
+                    _ = numbersStack.pop()
+                             
+                    let val1 = numbersStack.peek()
+                    _ = numbersStack.pop()
+                             
+                    let op = operatorsStack.peek()
+                    _ = operatorsStack.pop()
+                             
+                    numbersStack.push(String(compute(Float(val1)!, Float(val2)!, op)))
+                    }
+                     
+                // Top of 'values' contains final answer
+                ans = Float(numbersStack.peek())!
+                
+            } else {
+                //difficulty == "Hard"
+                //create infix expression
+                for element in self.mathEquationArray {
+                    if element == "(" {
+                        //push opening parentheses to operatorsStack
+                        operatorsStack.push(element)
+                    } else if (Int(element) != nil) {
+                        //push numbers to numbersStack
+                        numbersStack.push(element)
+                    } else if element == ")" {
+                        //solve upon encountering closing parentheses
+                        while !operatorsStack.isEmpty() && operatorsStack.peek() != "(" {
+                            let val2 = numbersStack.peek()
+                            _ = numbersStack.pop()
+                            
+                            let val1 = numbersStack.peek()
+                            _ = numbersStack.pop()
+                            
+                            let op = operatorsStack.peek()
+                            _ = operatorsStack.pop()
+                            
+                            numbersStack.push(String(compute(Float(val1)!, Float(val2)!, op)))
+                        }
+                        if !operatorsStack.isEmpty() {
+                            //pop opening brace
+                            _ = operatorsStack.pop()
+                        }
+                    } else {
+                        //current element is an operator
+                        // While top of 'operatorStack' has same or greater precedence to current element, which
+                        //is an operator. Apply operator on top of 'ops' to top two elements in values stack.
+                        while(!operatorsStack.isEmpty() && (precedence(operatorsStack.peek()) >= precedence(element))) {
+                            let val2 = numbersStack.peek();
+                            _ = numbersStack.pop();
+                             
+                            let val1 = numbersStack.peek();
+                            _ = numbersStack.pop();
+                             
+                            let op = operatorsStack.peek();
+                            _ = operatorsStack.pop();
+                             
+                            numbersStack.push(String(compute(Float(val1)!, Float(val2)!, op)))
+                        }
+                        // Push current element to operatorsStack
+                        operatorsStack.push(element)
+                    }
+                }
+                
+                // Entire expression has been parsed at this point, apply remaining operators to remaining values
+                while(!operatorsStack.isEmpty()){
+                    let val2 = numbersStack.peek()
+                    _ = numbersStack.pop()
+                             
+                    let val1 = numbersStack.peek()
+                    _ = numbersStack.pop()
+                             
+                    let op = operatorsStack.peek()
+                    _ = operatorsStack.pop()
+                             
+                    numbersStack.push(String(compute(Float(val1)!, Float(val2)!, op)))
+                    }
+                     
+                ans = Float(numbersStack.peek())!
+            }
+            
             let formatter = NumberFormatter()
             formatter.minimumFractionDigits = 0
             formatter.maximumFractionDigits = 2
 
-            // Avoid getting a zero on numbers lower than 1
-            // Eg: .5, .67, etc...
-            //If ans is a decimal number, it will be rounded to the nearest tenths place
+            // Avoid getting a zero on numbers lower than 1 (Eg: .5, .67, etc...)
+            // If ans is a decimal number, it will be rounded to the nearest hundredths place
             formatter.numberStyle = .decimal
-
-            if difficultyLevel == "Easy" {
-                ans = self.compute(Float(num1), Float(num2), symbol1)
-            } else if difficultyLevel == "Normal" {
-                ans = self.compute(Float(num1), Float(num2), symbol1)
-                ans = self.compute(ans, Float(num3), symbol2)
-            } else {
-                //difficulty == "Hard"
-                ans = self.compute(Float(num1), Float(num2), symbol1)
-                ans = self.compute(ans, Float(num3), symbol2)
-                ans = self.compute(ans, Float(num4), symbol3)
-            }
-
             let finalAns : String = formatter.string(from: ans as NSNumber)!
+            
             if inputTextField.text! == finalAns {
                 //answer is correct
                 toggleSubmitButton(for: "correct")
                 
                 numberOfCorrectAnswers += 1 //increment number of correct answers
+                scoreLabel.text = "\(numberOfCorrectAnswers)/\(numberOfCorrectAnswersNeeded)"
                 inputTextField.text = "" //clear text field
-                if difficultyLevel == "Easy" && numberOfCorrectAnswers < 3 {
+                if numberOfCorrectAnswers < numberOfCorrectAnswersNeeded {
                     makeMathQuery(diff: difficultyLevel)
-                } else if difficultyLevel == "Normal" && numberOfCorrectAnswers < 2 {
-                    makeMathQuery(diff: difficultyLevel)
-                } else {
-                    //"Easy" && numberOfCorrectAnswers == 3 OR "Normal" && numberOfCorrectAnswers == 2 OR "Hard" && numberOfCorrectAnswers == 1
-                    //segue to home screen gets performed
                 }
             } else {
                 //answer is incorrect
                 toggleSubmitButton(for: "incorrect")
                 
                 numberOfCorrectAnswers = (numberOfCorrectAnswers == 0) ? 0 : (numberOfCorrectAnswers - 1) //lowest possible value of numOfCorrectAnswers is 0
+                scoreLabel.text = "\(numberOfCorrectAnswers)/\(numberOfCorrectAnswersNeeded)"
                 inputTextField.text = "" //clear text field
                 makeMathQuery(diff: difficultyLevel)
             }
+            
+            
         } else {
             //puzzleType == "Scrambled Word Sentence" OR "Scrambled Letter Sentence"
             if sentence == inputTextField.text! {
@@ -615,20 +844,19 @@ class SolveAlarmViewController: UIViewController {
                 toggleSubmitButton(for: "correct")
                 
                 numberOfCorrectAnswers += 1 //increment number of correct answers
+                scoreLabel.text = "\(numberOfCorrectAnswers)/\(numberOfCorrectAnswersNeeded)"
                 inputTextField.text = "" //clear text field
-                if difficultyLevel == "Easy" && numberOfCorrectAnswers < 3 {
+                if numberOfCorrectAnswers < numberOfCorrectAnswersNeeded {
                     makeSentenceQuery(diff: difficultyLevel)
-                } else if difficultyLevel == "Normal" && numberOfCorrectAnswers < 2 {
-                    makeSentenceQuery(diff: difficultyLevel)
-                } else {
-                    //"Easy" && numberOfCorrectAnswers == 3 OR "Normal" && numberOfCorrectAnswers == 2 OR "Hard" && numberOfCorrectAnswers == 1
-                    //segue to home screen gets performed
                 }
             } else {
                 //answer is incorrect
                 toggleSubmitButton(for: "incorrect")
+                print("\(sentence)")
+                print("\(inputTextField.text!)")
                 
                 numberOfCorrectAnswers = (numberOfCorrectAnswers == 0) ? 0 : (numberOfCorrectAnswers - 1) //lowest possible value of numOfCorrectAnswers is 0
+                scoreLabel.text = "\(numberOfCorrectAnswers)/\(numberOfCorrectAnswersNeeded)"
                 inputTextField.text = "" //clear text field
                 makeSentenceQuery(diff: difficultyLevel)
             }
@@ -648,10 +876,11 @@ class SolveAlarmViewController: UIViewController {
     
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
         if identifier == "submitToHomeButton" {
-            if (difficultyLevel == "Easy" && numberOfCorrectAnswers == 3) || (difficultyLevel == "Normal" &&  numberOfCorrectAnswers == 2) || (difficultyLevel == "Hard" &&  numberOfCorrectAnswers == 1) {
-                successfulSolve = true
+            if (numberOfCorrectAnswers == numberOfCorrectAnswersNeeded) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.20) { //delay so user can see updated score
+                    self.successfullySolvedAllPuzzles = true
+                }
                 return true
-                
             }
         }
         return false
@@ -662,14 +891,15 @@ class SolveAlarmViewController: UIViewController {
 extension SolveAlarmViewController: CAAnimationDelegate {
   func animationDidStop(_ anim: CAAnimation,
     finished flag: Bool) {
-    if successfulSolve {
-        layer0.removeFromSuperlayer()
+    if successfullySolvedAllPuzzles {
         layer1.removeFromSuperlayer()
+        layer0.removeFromSuperlayer()
     }
     inputTextField.text = ""
     if !submitButtonClicked && !newButtonClicked {
-        //if submit button was NOT clicked at all and new Button was not clicked
+        //if submit button was NOT clicked, and new Button was NOT clicked (timer ran out)
         numberOfCorrectAnswers = (numberOfCorrectAnswers == 0) ? 0 : (numberOfCorrectAnswers - 1) //lowest possible value of numOfCorrectAnswers is 0
+        scoreLabel.text = "\(numberOfCorrectAnswers)/\(numberOfCorrectAnswersNeeded)"
         toggleSubmitButton(for: "incorrect")
         restartTimer()
         puzzleType == "Math Equations" ? makeMathQuery(diff: difficultyLevel) : makeSentenceQuery(diff: difficultyLevel)
@@ -722,4 +952,28 @@ extension UIColor {
        )
    }
 }
+
+struct Stack {
+    private var stackArray : [String] = []
+    
+    mutating func push(_ stringToPush: String) {
+      stackArray.append(stringToPush)
+    }
+    
+    mutating func pop() -> String? {
+        return stackArray.popLast()
+    }
+    
+    func isEmpty() -> Bool {
+        return stackArray.isEmpty
+    }
+    
+    func peek() -> String {
+        guard let topElement = stackArray.last else { return "This stack is empty." }
+        return topElement
+    }
+}
+
+
+
 

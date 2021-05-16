@@ -365,13 +365,13 @@
                                         </subviews>
                                         <color key="backgroundColor" red="0.66249716219999999" green="0.53452122989999995" blue="0.28544549050000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="80" id="Aiq-W8-82g"/>
+                                            <constraint firstAttribute="height" constant="80" id="Aiq-W8-82g"/>
                                         </constraints>
                                     </stackView>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="fxl-oi-oBH">
                                         <rect key="frame" x="0.0" y="370" width="414" height="161"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                        <color key="textColor" systemColor="labelColor"/>
+                                        <color key="backgroundColor" red="0.99295691287878785" green="0.99295691287878785" blue="0.99295691287878785" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="no"/>
                                     </textView>
@@ -383,14 +383,26 @@
                                     <constraint firstAttribute="trailing" secondItem="fxl-oi-oBH" secondAttribute="trailing" id="8w0-xW-X0Y"/>
                                     <constraint firstAttribute="trailing" secondItem="X6M-Ic-3CU" secondAttribute="trailing" id="B5s-EE-if1"/>
                                     <constraint firstItem="cJk-7j-znQ" firstAttribute="leading" secondItem="auZ-28-Ebo" secondAttribute="leading" id="NS2-JM-gfc"/>
+                                    <constraint firstItem="fxl-oi-oBH" firstAttribute="top" secondItem="X6M-Ic-3CU" secondAttribute="bottom" constant="5" id="qLy-5n-bAd"/>
                                     <constraint firstItem="fxl-oi-oBH" firstAttribute="leading" secondItem="auZ-28-Ebo" secondAttribute="leading" id="tjK-tl-KQu"/>
                                 </constraints>
                             </stackView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="X/X" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AAy-E9-zp5" userLabel="Score Label">
+                                <rect key="frame" x="358.5" y="74" width="35.5" height="35.5"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="AAy-E9-zp5" secondAttribute="height" id="QAM-ot-pzr"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="22"/>
+                                <color key="textColor" red="0.55294117649999996" green="0.45098039220000002" blue="0.24313725489999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="gRm-3f-dkr"/>
                         <color key="backgroundColor" red="0.99607843159999998" green="0.83137255909999996" blue="0.47843140360000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
+                            <constraint firstItem="gRm-3f-dkr" firstAttribute="trailing" secondItem="AAy-E9-zp5" secondAttribute="trailing" constant="20" id="BaD-Mu-npm"/>
                             <constraint firstAttribute="bottom" secondItem="auZ-28-Ebo" secondAttribute="bottom" constant="305" id="Dc7-Ct-IYH"/>
+                            <constraint firstItem="AAy-E9-zp5" firstAttribute="top" secondItem="gRm-3f-dkr" secondAttribute="top" constant="30" id="H1M-tm-57H"/>
                             <constraint firstItem="auZ-28-Ebo" firstAttribute="top" secondItem="JtX-n4-ToR" secondAttribute="top" constant="60" id="IVT-k3-mod"/>
                             <constraint firstItem="auZ-28-Ebo" firstAttribute="leading" secondItem="gRm-3f-dkr" secondAttribute="leading" id="WVy-lj-ucZ"/>
                             <constraint firstItem="gRm-3f-dkr" firstAttribute="trailing" secondItem="auZ-28-Ebo" secondAttribute="trailing" id="zL5-Kf-sxU"/>
@@ -400,6 +412,7 @@
                         <outlet property="displayLabel" destination="cJk-7j-znQ" id="WaD-ZF-X10"/>
                         <outlet property="inputTextField" destination="fxl-oi-oBH" id="XkO-dO-vfk"/>
                         <outlet property="newButton" destination="Y6s-BH-t7k" id="4Kk-sR-CRz"/>
+                        <outlet property="scoreLabel" destination="AAy-E9-zp5" id="sdP-LV-n46"/>
                         <outlet property="submitButton" destination="UT4-gy-llE" id="Fue-fU-hLL"/>
                     </connections>
                 </viewController>
