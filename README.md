@@ -13,6 +13,17 @@ Original App Design Project - README Template
 ### Description
 An alarm clock app that requires a puzzle or math problem to turn it off. The purpose of this app is to wake the brain up a bit so you don't just hit snooze and go back to bed.
 
+## Sprint 4
+
+- Finished 2 more of our total 8 required user stories as planned. (8/8 Completed)
+
+- Users will be able to solve a puzzle to turn off their alarm
+
+- Users can now edit things on their settings screen, such as the time format, display theme, and number of seconds alloted for each puzzle
+
+<img src='http://g.recordit.co/lgVpK03qWn.gif' width='' alt='Sprint 4' />
+
+
 ## Sprint 3
 
 - Finished 2 more of our total 8 required user stories as planned. (6/8 Completed)
@@ -21,7 +32,7 @@ An alarm clock app that requires a puzzle or math problem to turn it off. The pu
 
 - Users can now choose alarm puzzles and difficulty. Users will get notifications for their alarms and can click the solve button.
 
-<img src='http://g.recordit.co/sYZD3qslKS.gif' width='' alt='Sprint 2' />
+<img src='http://g.recordit.co/sYZD3qslKS.gif' width='' alt='Sprint 3' />
 
 ## Sprint 2
 
