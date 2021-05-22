@@ -15,6 +15,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var alarmsHomeScreen = Defaults.getAlarmObjects()
     private let notificationPublisher = NotificationPublisher()
     
+    //for military time feature
+    let defaults = UserDefaults.standard
+    var alarmTimeVar : String = ""
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -23,6 +27,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         tableView.tableFooterView = UIView()
         // Do any additional setup after loading the view.
     
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
     }
     
     // After an alarm is made, it will refresh and show the alarm
@@ -38,7 +45,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        print(alarmsHomeScreen)
+        //print(alarmsHomeScreen)
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "AlarmCell") as! AlarmCell
         let alarm = alarmsHomeScreen[indexPath.row]
@@ -110,6 +117,20 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         switchView.addTarget(self, action: #selector(self.switchChanged(_:)), for: .valueChanged)
         cell.accessoryView = switchView
         
+        //checking if military time is enabled
+        let militaryTimeOn = defaults.bool(forKey: "militaryTimeToggleOn")
+        if militaryTimeOn && !alarmsHomeScreen.isEmpty {
+            alarmTimeVar = cell.alarmTime.text!
+            if cell.alarmPeriod.text == "PM" {
+                if convertStringMinutesToInt(cell.alarmTime.text!) == -1{
+                    cell.alarmTime.text = "\(convertStringHourToInt(cell.alarmTime.text!) + 12):00"
+                } else {
+                    cell.alarmTime.text = "\(convertStringHourToInt(cell.alarmTime.text!) + 12):\(convertStringMinutesToInt(cell.alarmTime.text!))"
+                }
+            }
+        }
+        
+        
         return cell
     }
     
@@ -135,8 +156,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     @IBAction func testAlert(_ sender: Any) {
-        notificationPublisher.sendNotification(title: "Wake Up", subtitle: "7:00 AM", body: "Click here to solve puzzle and turn alarm off!", badge: 1, delayInterval: 5)
-        print("Button pressd")
+        notificationPublisher.sendNotification(title: "Wake Up", subtitle: "11:44 PM", body: "Click here to solve puzzle and turn alarm off!", badge: 1, delayInterval: 5)
+        print("Button pressed")
     }
     
     func solveAlarm(){
@@ -154,5 +175,32 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
      
     */
+    
+    //needed for military time feature
+    func convertStringHourToInt(_ time: String) -> Int {
+        let length : Int = time.count
+        var hour : Int = 0
+        
+        if length == 4 {
+            //2:00 for ex.
+            hour = Int(time.prefix(1))!
+        } else {
+            //12:00 for ex.
+            hour = Int(time.prefix(2))!
+        }
+        return hour
+    }
+    
+    //needed for military time feature
+    func convertStringMinutesToInt(_ time: String) -> Int {
+        var minutes : Int = 0
+        
+        minutes = Int(time.suffix(2))!
+        if time.suffix(2) == "00" {
+            minutes = -1
+        }
+        return minutes
+    }
 }
+
 

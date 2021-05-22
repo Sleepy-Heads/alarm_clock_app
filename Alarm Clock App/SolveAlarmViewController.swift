@@ -12,6 +12,9 @@ import Parse
 
 class SolveAlarmViewController: UIViewController, UITextViewDelegate {
     
+    let defaults = UserDefaults.standard
+    
+    
     @IBOutlet weak var inputTextField: UITextView!
     @IBOutlet weak var displayLabel: UILabel!
     @IBOutlet weak var newButton: UIButton!
@@ -20,11 +23,12 @@ class SolveAlarmViewController: UIViewController, UITextViewDelegate {
     
     
     let puzzleType = "Math Equations" // Three options: "Math Equations" ,  "Scrambled Word Sentence", "Scrambled Letter Sentence"
-    let difficultyLevel = "Hard" // Three options: "Easy" ,  "Normal", "Hard" ; difficulty level chosen by user ; should always start with capital letter
+    let difficultyLevel = "Easy" // Three options: "Easy" ,  "Normal", "Hard" ; difficulty level chosen by user ; should always start with capital letter
     var numberOfCorrectAnswers : Int = 0 //User must get 3 if difficulty = Easy ; 2 if difficulty = Normal ; 1 if difficulty = Hard
     var numberOfCorrectAnswersNeeded : Int = 0
     
-    var numOfSeconds : Double = 30
+    var numOfSeconds : Double = 60 //selected by user on settings screen
+    
     let submitButtonColor = UIColor(rgb: 0x8D733E)
     var submitButtonClicked : Bool = false
     var newButtonClicked : Bool = false
@@ -62,6 +66,8 @@ class SolveAlarmViewController: UIViewController, UITextViewDelegate {
     
     
     override func viewWillAppear(_ animated: Bool) {
+        numOfSeconds = Double(defaults.integer(forKey: "timeSelected"))
+        
         restartTimer()
     }
     
@@ -135,7 +141,7 @@ class SolveAlarmViewController: UIViewController, UITextViewDelegate {
     @objc func restartTimer() {
         //Lay down background stroke
         let shapeLayerBottom = UIBezierPath()
-        shapeLayerBottom.move(to: CGPoint(x:(UIScreen.main.bounds.width)-20, y:60))
+        shapeLayerBottom.move(to: CGPoint(x:(UIScreen.main.bounds.width)-10, y:60))
         shapeLayerBottom.addLine(to: CGPoint(x: 10, y: 60))
         layer0.path = shapeLayerBottom.cgPath
         let myColor : UIColor = UIColor(rgb: 0x8D733E)
@@ -147,7 +153,7 @@ class SolveAlarmViewController: UIViewController, UITextViewDelegate {
         
         //creation of white overlay stroke
         let shapeLayerTop = UIBezierPath()
-        shapeLayerTop.move(to: CGPoint(x:(UIScreen.main.bounds.width)-20, y:60))
+        shapeLayerTop.move(to: CGPoint(x:(UIScreen.main.bounds.width)-10, y:60))
         shapeLayerTop.addLine(to: CGPoint(x: 10, y: 60))
         layer1.path = shapeLayerTop.cgPath
         layer1.strokeColor = UIColor.white.cgColor
