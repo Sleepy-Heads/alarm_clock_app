@@ -17,7 +17,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     //for military time feature
     let defaults = UserDefaults.standard
-    var alarmTimeVar : String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -120,7 +119,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         //checking if military time is enabled
         let militaryTimeOn = defaults.bool(forKey: "militaryTimeToggleOn")
         if militaryTimeOn && !alarmsHomeScreen.isEmpty {
-            alarmTimeVar = cell.alarmTime.text!
             if cell.alarmPeriod.text == "PM" {
                 if convertStringMinutesToInt(cell.alarmTime.text!) == -1{
                     cell.alarmTime.text = "\(convertStringHourToInt(cell.alarmTime.text!) + 12):00"
@@ -129,6 +127,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 }
             }
         }
+        //done checking
         
         
         return cell

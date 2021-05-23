@@ -7,7 +7,10 @@
 
 /*
  TO DO:
- - Make data persistent
+ - Implement dark mode
+ - Fix design
+ - Notify when they terminate feature? OPTIONAL
+ - Wallpeper feature? OPTIONAL
  */
 import UIKit
 
@@ -30,6 +33,11 @@ class SettingsViewController: UIViewController {
     
     override func viewDidLoad() {
         
+        //enabling persistence for timer segmented control
+        let amountOfTimeForPuzzle = defaults.integer(forKey: "timeSelected")
+        if amountOfTimeForPuzzle != 0 {
+            timerSegmentedControl.selectedSegmentIndex = timerValues.firstIndex(of: amountOfTimeForPuzzle)!
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
