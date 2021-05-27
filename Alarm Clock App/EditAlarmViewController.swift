@@ -9,6 +9,18 @@ import UIKit
 
 class EditAlarmViewController: UIViewController {
     
+    let defaults = UserDefaults.standard
+    
+    //needed for dark mode
+    @IBOutlet weak var editAlarmLabel: UILabel!
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var timeLabel: UILabel!
+    @IBOutlet weak var repeatLabel: UILabel!
+    @IBOutlet weak var puzzleLabel: UILabel!
+    @IBOutlet weak var difficultyLabel: UILabel!
+    //
+    
+    
     @IBOutlet weak var alarmNametxt: UITextField!
     
     @IBOutlet weak var timePicker: UIDatePicker!
@@ -57,6 +69,23 @@ class EditAlarmViewController: UIViewController {
         puzzleTypePickerView.tag = 1
         puzzleDifficultyPickerView.tag = 2
         
+        
+        if defaults.bool(forKey: "darkModeToggleOn") {
+            overrideUserInterfaceStyle = .dark
+            editAlarmLabel.textColor = .black
+            nameLabel.textColor = .black
+            timeLabel.textColor = .black
+            repeatLabel.textColor = .black
+            sunButton.setTitleColor(.black, for: .normal)
+            monButton.setTitleColor(.black, for: .normal)
+            tueButton.setTitleColor(.black, for: .normal)
+            wedButton.setTitleColor(.black, for: .normal)
+            thurButton.setTitleColor(.black, for: .normal)
+            friButton.setTitleColor(.black, for: .normal)
+            satButton.setTitleColor(.black, for: .normal)
+            puzzleLabel.textColor = .black
+            difficultyLabel.textColor = .black
+        }
     }
     
     @IBAction func onTimeSelected(_ sender: Any) {

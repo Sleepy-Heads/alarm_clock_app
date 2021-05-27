@@ -34,7 +34,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
                                 <state key="normal" title="Done">
-                                    <color key="titleColor" systemColor="labelColor"/>
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
                                     <action selector="onDone:" destination="Qrj-Ta-qAy" eventType="touchUpInside" id="Wxi-yH-nsO"/>
@@ -185,13 +185,19 @@
                     </view>
                     <connections>
                         <outlet property="alarmNametxt" destination="FiD-sa-w3l" id="4ak-Qt-hut"/>
+                        <outlet property="difficultyLabel" destination="A63-wF-Xct" id="IUI-3N-fwO"/>
                         <outlet property="difficultyTextField" destination="Xv9-Oe-1di" id="J9J-WT-Ea2"/>
+                        <outlet property="editAlarmLabel" destination="4IB-mV-Q0F" id="SX7-vP-1z6"/>
                         <outlet property="friButton" destination="n6a-3r-8HC" id="tc2-it-FdU"/>
                         <outlet property="monButton" destination="hxR-p7-4IP" id="dB6-Hz-NVJ"/>
+                        <outlet property="nameLabel" destination="oBE-cW-GFr" id="32Z-KF-QbH"/>
+                        <outlet property="puzzleLabel" destination="Nrk-WH-QeI" id="FFR-4r-XRC"/>
                         <outlet property="puzzleTextField" destination="uXO-09-PMw" id="Wzm-0n-Vm0"/>
+                        <outlet property="repeatLabel" destination="DGu-Yg-dH2" id="7gM-FO-A1q"/>
                         <outlet property="satButton" destination="s03-XP-Qct" id="p4D-fC-TeL"/>
                         <outlet property="sunButton" destination="cpm-7S-iUT" id="Rsj-TL-yRN"/>
                         <outlet property="thurButton" destination="DDq-iX-yBU" id="eJ3-W9-31V"/>
+                        <outlet property="timeLabel" destination="xLj-xi-sx6" id="JfM-Mq-ueU"/>
                         <outlet property="timePicker" destination="Jy9-Hu-dyH" id="pIj-ir-A3f"/>
                         <outlet property="tueButton" destination="7FE-qO-BEm" id="TtR-Tb-xN3"/>
                         <outlet property="wedButton" destination="u6c-DZ-070" id="ejT-zm-npk"/>
@@ -242,14 +248,14 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="11:56" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hwz-yb-dNV">
-                                                    <rect key="frame" x="8" y="7" width="79" height="32"/>
+                                                    <rect key="frame" x="8" y="7" width="76" height="32"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="26"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="AM" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eWd-nN-dvz">
-                                                    <rect key="frame" x="87" y="18" width="26" height="21"/>
+                                                    <rect key="frame" x="84" y="18" width="26" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
@@ -535,8 +541,8 @@
                                 <rect key="frame" x="0.0" y="232" width="414" height="54"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Military Time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fT8-rB-5Ny">
-                                        <rect key="frame" x="8" y="16" width="98" height="21"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="24-Hour Time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fT8-rB-5Ny">
+                                        <rect key="frame" x="8" y="16" width="107" height="21"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
@@ -545,7 +551,6 @@
                                     <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="uk8-Bs-Bqe">
                                         <rect key="frame" x="359" y="11" width="49" height="31"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="onTintColor" red="0.55306297660000003" green="0.44947318380000001" blue="0.24134622140000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <connections>
                                             <action selector="onMilitaryTimeToggle:" destination="UHM-rg-evb" eventType="valueChanged" id="Dpp-Fr-8gb"/>
                                         </connections>
@@ -575,7 +580,6 @@
                                     <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="jWI-qy-GRE">
                                         <rect key="frame" x="359" y="11" width="49" height="31"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="onTintColor" red="0.55306297660000003" green="0.44947318380000001" blue="0.24134622140000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <connections>
                                             <action selector="onDarkModeToggle:" destination="UHM-rg-evb" eventType="valueChanged" id="DIi-J6-Qg4"/>
                                         </connections>
@@ -619,7 +623,6 @@
                                     <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="x0F-PA-4FR">
                                         <rect key="frame" x="359" y="11" width="49" height="31"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="onTintColor" red="0.55306297660000003" green="0.44947318380000001" blue="0.24134622140000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <connections>
                                             <action selector="onDarkModeToggle:" destination="UHM-rg-evb" eventType="valueChanged" id="BDo-6Q-V0y"/>
                                         </connections>
@@ -641,9 +644,17 @@
                     </view>
                     <navigationItem key="navigationItem" title="Settings" id="F3Q-IL-nQ6"/>
                     <connections>
+                        <outlet property="darkModeLabel" destination="rAT-Db-LK4" id="f38-GG-slF"/>
                         <outlet property="darkModeSwitch" destination="jWI-qy-GRE" id="cWw-6T-Iug"/>
+                        <outlet property="firstViewSlot" destination="pqT-Nb-cfN" id="LZZ-LZ-LMb"/>
+                        <outlet property="fourthViewSlot" destination="ri3-id-VtM" id="W8z-Sw-qtB"/>
                         <outlet property="militaryTimeSwitch" destination="uk8-Bs-Bqe" id="TOG-M3-bSJ"/>
+                        <outlet property="notifyUponTerminationLabel" destination="gPb-yJ-NPH" id="aJs-eG-K70"/>
+                        <outlet property="secondViewSlot" destination="bOx-YR-7PY" id="gpI-1h-xiL"/>
+                        <outlet property="thirdViewSlot" destination="lZJ-Wy-bEM" id="Ass-LQ-vc5"/>
+                        <outlet property="timeLimitLabel" destination="WZ6-uA-duE" id="6jm-XK-ZRU"/>
                         <outlet property="timerSegmentedControl" destination="mAz-QW-whV" id="bz5-gx-Nbp"/>
+                        <outlet property="twentyFourTimeLabel" destination="fT8-rB-5Ny" id="n8U-hD-82K"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aaa-L1-ifj" sceneMemberID="firstResponder"/>
@@ -652,7 +663,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="upE-zF-jcu"/>
+        <segue reference="p2j-Ij-Vdo"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="chevron.backward" catalog="system" width="96" height="128"/>

@@ -24,7 +24,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         tableView.delegate = self
         tableView.dataSource = self
         tableView.tableFooterView = UIView()
-        // Do any additional setup after loading the view.
+        
+        
+        if defaults.bool(forKey: "darkModeToggleOn") {
+            overrideUserInterfaceStyle = .dark
+        }
     
     }
     
@@ -116,7 +120,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         switchView.addTarget(self, action: #selector(self.switchChanged(_:)), for: .valueChanged)
         cell.accessoryView = switchView
         
-        //12am should become 0am , 12pm should stay 12pm
+        
         //checking if military time is enabled
         let militaryTimeOn = defaults.bool(forKey: "militaryTimeToggleOn")
         if militaryTimeOn && !alarmsHomeScreen.isEmpty {

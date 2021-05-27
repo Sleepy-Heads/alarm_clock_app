@@ -75,6 +75,18 @@ class SolveAlarmViewController: UIViewController, UITextViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //dark mode implementation
+        if defaults.bool(forKey: "darkModeToggleOn") {
+            overrideUserInterfaceStyle = .dark
+            inputTextField.backgroundColor = .black
+            newButton.backgroundColor = .black
+            submitButton.backgroundColor = .black
+            
+            inputTextField.textColor = .white
+            newButton.setTitleColor(.white, for: .normal)
+            submitButton.setTitleColor(.white, for: .normal)
+        }
+        
         //Choose which Keyboard to display & get height for display of inputTextField
         if puzzleType == "Math Equations" {
             self.inputTextField.keyboardType = .numbersAndPunctuation
