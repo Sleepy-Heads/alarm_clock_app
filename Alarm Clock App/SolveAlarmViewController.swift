@@ -29,7 +29,7 @@ class SolveAlarmViewController: UIViewController, UITextViewDelegate {
     
     var numOfSeconds : Double = 60 //selected by user on settings screen
     
-    let submitButtonColor = UIColor(rgb: 0x8D733E)
+    var submitButtonColor = UIColor(rgb: 0x8D733E)
     var submitButtonClicked : Bool = false
     var newButtonClicked : Bool = false
     var successfullySolvedAllPuzzles : Bool = false
@@ -75,18 +75,6 @@ class SolveAlarmViewController: UIViewController, UITextViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //dark mode implementation
-        if defaults.bool(forKey: "darkModeToggleOn") {
-            overrideUserInterfaceStyle = .dark
-            inputTextField.backgroundColor = .black
-            newButton.backgroundColor = .black
-            submitButton.backgroundColor = .black
-            
-            inputTextField.textColor = .white
-            newButton.setTitleColor(.white, for: .normal)
-            submitButton.setTitleColor(.white, for: .normal)
-        }
-        
         //Choose which Keyboard to display & get height for display of inputTextField
         if puzzleType == "Math Equations" {
             self.inputTextField.keyboardType = .numbersAndPunctuation
@@ -128,6 +116,18 @@ class SolveAlarmViewController: UIViewController, UITextViewDelegate {
         
         //if puzzleType selected is "Math Equations" then call makeMathQuery(), else call makeSentenceQuery()
         puzzleType == "Math Equations" ? makeMathQuery(diff: difficultyLevel) : makeSentenceQuery(diff: difficultyLevel)
+        
+        //dark mode implementation
+        if defaults.bool(forKey: "darkModeToggleOn") {
+            submitButtonColor = .white
+            inputTextField.backgroundColor = .black
+            newButton.backgroundColor = .black
+            submitButton.backgroundColor = .black
+            
+            inputTextField.textColor = .white
+            newButton.setTitleColor(.white, for: .normal)
+            submitButton.setTitleColor(.white, for: .normal)
+        }
     }
     
     

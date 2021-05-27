@@ -11,6 +11,8 @@ import Parse
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
+    
+//    private let notificationPublisher = NotificationPublisher()
 
     private func requestNotificationAuthorization(application: UIApplication) {
         let center = UNUserNotificationCenter.current()
@@ -50,4 +52,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
     }
+    
+//    func applicationWillTerminate(_ application: UIApplication) {
+//        print("application terminated!")
+//        notificationPublisher.sendNotification(title: "Oh no!", subtitle: "Alarmy was terminated", body: "Click here to reopen Alarmy to get your alarms", badge: 1, delayInterval: 2)
+//    }
+    
 }

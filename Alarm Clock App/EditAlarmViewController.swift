@@ -71,7 +71,6 @@ class EditAlarmViewController: UIViewController {
         
         
         if defaults.bool(forKey: "darkModeToggleOn") {
-            overrideUserInterfaceStyle = .dark
             editAlarmLabel.textColor = .black
             nameLabel.textColor = .black
             timeLabel.textColor = .black
