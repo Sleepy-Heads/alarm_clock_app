@@ -8,7 +8,6 @@
 /*
  TO DO:
  - Implement dark mode
- - Fix design
  - Notify when they terminate feature? OPTIONAL
  - Wallpeper feature? OPTIONAL
  */
@@ -81,56 +80,7 @@ class SettingsViewController: UIViewController {
     }
     */
 
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
-    {
-//        if militaryTimeSwitch.isOn && segue.destination is ViewController {
-//            let vc = segue.destination as? ViewController
-//            if !((vc?.alarmsHomeScreen.isEmpty)!) {
-//
-//                var tempTimeVar : String = ""
-//
-//                //var i = 0
-//                for alarm in (vc?.alarmsHomeScreen)! {
-//
-//                    tempTimeVar = (alarm.alarmTime)
-//                    let dateAsString = (tempTimeVar) + " " + (alarm.alarmPeriod)
-//                    let dateFormatter = DateFormatter()
-//                    dateFormatter.dateFormat = "h:mm a"
-//                    let date = dateFormatter.date(from: dateAsString)
-//                    dateFormatter.dateFormat = "HH:mm"
-//                    let date24 = dateFormatter.string(from: date!)
-//                    vc?.timeLabel.text = date24
-//                }
-//            }
-//        }
-    }
         
 }
 
-//if militaryTimeSwitch.isOn {
-//
-//    if segue.destination is ViewController {
-//        let vc = segue.destination as? ViewController
-//
-//        if !((vc?.alarmsHomeScreen.isEmpty)!) {
-//            let vc = segue.destination as? ViewController
-//
-//            var i = 0
-//            for alarm in (vc?.alarmsHomeScreen)! {
-//                let dateAsString = (alarm.alarmTime) + " " + (alarm.alarmPeriod)
-//                print(dateAsString)
-//
-//                let dateFormatter = DateFormatter()
-//                dateFormatter.dateFormat = "h:mm a"
-//                let date = dateFormatter.date(from: dateAsString)
-//
-//                dateFormatter.dateFormat = "HH:mm"
-//                let date24 = dateFormatter.string(from: date!)
-//
-//                vc?.alarmsHomeScreen[i].alarmTime = date24
-//                i+=1
-//            }
-//
-//        }
-//    }
-//}
+

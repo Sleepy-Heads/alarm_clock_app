@@ -116,14 +116,23 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         switchView.addTarget(self, action: #selector(self.switchChanged(_:)), for: .valueChanged)
         cell.accessoryView = switchView
         
+        //12am should become 0am , 12pm should stay 12pm
         //checking if military time is enabled
         let militaryTimeOn = defaults.bool(forKey: "militaryTimeToggleOn")
         if militaryTimeOn && !alarmsHomeScreen.isEmpty {
-            if cell.alarmPeriod.text == "PM" {
+            if cell.alarmPeriod.text == "PM" && cell.alarmTime.text?.prefix(2) != "12" {
                 if convertStringMinutesToInt(cell.alarmTime.text!) == -1{
                     cell.alarmTime.text = "\(convertStringHourToInt(cell.alarmTime.text!) + 12):00"
                 } else {
                     cell.alarmTime.text = "\(convertStringHourToInt(cell.alarmTime.text!) + 12):\(convertStringMinutesToInt(cell.alarmTime.text!))"
+                }
+            }
+            
+            if cell.alarmTime.text?.prefix(2) == "12" && cell.alarmPeriod.text == "AM" {
+                if convertStringMinutesToInt(cell.alarmTime.text!) == -1{
+                    cell.alarmTime.text = "0:00"
+                } else {
+                    cell.alarmTime.text = "0:\(convertStringMinutesToInt(cell.alarmTime.text!))"
                 }
             }
         }
@@ -190,7 +199,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         return hour
     }
     
-    //needed for military time feature
+    //needed for military time feature, returns -1 if minutes is 00
     func convertStringMinutesToInt(_ time: String) -> Int {
         var minutes : Int = 0
         
