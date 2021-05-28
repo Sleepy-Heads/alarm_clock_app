@@ -87,19 +87,8 @@ class NotificationPublisher : NSObject, UNUserNotificationCenterDelegate {
 
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         print("Notification is about to be presented") // When application in foreground
-        let viewController:ViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ViewController") as! ViewController
+        let viewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ViewController") as! ViewController
         viewController.playAlarmSound()
-        let date = Date()
-        let calendar = Calendar.current
-        var hour = calendar.component(.hour, from: date)
-        let minutes = calendar.component(.minute, from: date)
-        var amorpm = "AM"
-        if(hour >= 13 && hour != 24){
-            hour -= 12
-            amorpm = "PM"
-        }
-        let systemTime = "\(hour):\(minutes)\(amorpm)"
-        viewController.getPuzzleAndDifficulty(systemTime: systemTime)
         completionHandler([.badge, .sound, .alert])
     }
     

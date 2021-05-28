@@ -19,8 +19,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var alarmsHomeScreen = Defaults.getAlarmObjects()
     private let notificationPublisher = NotificationPublisher()
     
-    var puzzleType = "Math Equations"
-    var difficultyLevel = "Easy"
+    var puzzleTypeHS = ""
+    var difficultyLevelHS = ""
     
     //for military time feature
     let defaults = UserDefaults.standard
@@ -40,6 +40,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let TapGesture = UITapGestureRecognizer()
         self.view.addGestureRecognizer(TapGesture)
         TapGesture.addTarget(self, action: #selector(disableSleep))
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -289,41 +290,53 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func getPuzzleAndDifficulty(systemTime : String) {
+        var found = false
+        
         for alarm in alarmsHomeScreen.enumerated(){
             let alarm = alarmsHomeScreen[alarm.offset]
             let currentAlarm = alarm.alarmTime + alarm.alarmPeriod
             print(currentAlarm, " ", systemTime)
+            if (currentAlarm < systemTime) && (found == false) {
+                puzzleTypeHS = alarm.alarmPuzzleType
+                difficultyLevelHS = alarm.alarmPuzzleDiff
+            }
             if(currentAlarm == systemTime){
                 print("found it")
-                puzzleType = alarm.alarmPuzzleType
-                difficultyLevel = alarm.alarmPuzzleDiff
+                found = true
+                puzzleTypeHS = alarm.alarmPuzzleType
+                difficultyLevelHS = alarm.alarmPuzzleDiff
             }
         }
         
-        print("In func: ", puzzleType)
-        print("In func: ", difficultyLevel)
     }
+
     
-    func getPuzzleType() -> String {
-        print("in get:", puzzleType)
-        return puzzleType
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "solveAlarm"{
+            let date = Date()
+            let calendar = Calendar.current
+            var hour = calendar.component(.hour, from: date)
+            let minutes = calendar.component(.minute, from: date)
+            var amorpm = "AM"
+            if(hour >= 13 && hour != 24){
+                hour -= 12
+                amorpm = "PM"
+            }
+            var systemTime = ""
+            if (minutes < 10) {
+                systemTime = "\(hour):0\(minutes)\(amorpm)"
+            } else {
+                systemTime = "\(hour):\(minutes)\(amorpm)"
+            }
+            getPuzzleAndDifficulty(systemTime: systemTime)
+
+            let vc = segue.destination as! SolveAlarmViewController
+            
+            vc.puzzleType = puzzleTypeHS
+            vc.difficultyLevel = difficultyLevelHS
+        }
     }
-    
-    func getDifficultyLevel() -> String {
-        print("in 2nd get:", difficultyLevel)
-        return difficultyLevel
-    }
-    
-//    // In a storyboard-based application, you will often want to do a little preparation before navigation
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        // Get the new view controller using segue.destination.
-//        // Pass the selected object to the new view controller.
-//        print("Before: ", puzzleType)
-//        print("Before: ", difficultyLevel)
-//        let SolveAlarmViewController = segue.destination as? ViewController
-//        SolveAlarmViewController?.puzzleType = puzzleType
-//        SolveAlarmViewController?.difficultyLevel = difficultyLevel
-//    }
 }
 
 

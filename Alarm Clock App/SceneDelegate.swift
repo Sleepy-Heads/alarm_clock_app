@@ -24,6 +24,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // This occurs shortly after the scene enters the background, or when its session is discarded.
         // Release any resources associated with this scene that can be re-created the next time the scene connects.
         // The scene may re-connect later, as its session was not necessarily discarded (see `application:didDiscardSceneSessions` instead).
+        let content = UNMutableNotificationContent()
+            content.title = "Oh no, you closed the app!"
+            content.body = "Please click to reopen"
+            content.sound = UNNotificationSound.default
+    
+            let center = UNUserNotificationCenter.current()
+            let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
+            let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
+            center.add(request)
     }
 
     func sceneDidBecomeActive(_ scene: UIScene) {

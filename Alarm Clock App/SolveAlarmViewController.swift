@@ -66,16 +66,19 @@ class SolveAlarmViewController: UIViewController, UITextViewDelegate {
     
     
     override func viewWillAppear(_ animated: Bool) {
-        numOfSeconds = Double(defaults.integer(forKey: "timeSelected")) != 0.0 ? Double(defaults.integer(forKey: "timeSelected")) : 10
+        numOfSeconds = Double(defaults.integer(forKey: "timeSelected")) != 0.0 ? Double(defaults.integer(forKey: "timeSelected")) : 15
         restartTimer()
+        
+        print("view will appear puzzleType: ", puzzleType)
+        print("view will appear difficulty: ", difficultyLevel)
     }
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        print(puzzleType)
-        print(difficultyLevel)
+        print("view did load puzzleType: ", puzzleType)
+        print("view did load difficulty: ", difficultyLevel)
         
         //Choose which Keyboard to display & get height for display of inputTextField
         if puzzleType == "Math Equations" {
