@@ -22,8 +22,8 @@ class SolveAlarmViewController: UIViewController, UITextViewDelegate {
     @IBOutlet weak var scoreLabel: UILabel!
     
     
-    let puzzleType = "Math Equations" // Three options: "Math Equations" ,  "Scrambled Word Sentence", "Scrambled Letter Sentence"
-    let difficultyLevel = "Easy" // Three options: "Easy" ,  "Normal", "Hard" ; difficulty level chosen by user ; should always start with capital letter
+    var puzzleType = "" // Three options: "Math Equations" ,  "Scrambled Word Sentence", "Scrambled Letter Sentence"
+    var difficultyLevel = "" // Three options: "Easy" ,  "Normal", "Hard" ; difficulty level chosen by user ; should always start with capital letter
     var numberOfCorrectAnswers : Int = 0 //User must get 3 if difficulty = Easy ; 2 if difficulty = Normal ; 1 if difficulty = Hard
     var numberOfCorrectAnswersNeeded : Int = 0
     
@@ -66,14 +66,16 @@ class SolveAlarmViewController: UIViewController, UITextViewDelegate {
     
     
     override func viewWillAppear(_ animated: Bool) {
-        numOfSeconds = Double(defaults.integer(forKey: "timeSelected"))
-        
+        numOfSeconds = Double(defaults.integer(forKey: "timeSelected")) != 0.0 ? Double(defaults.integer(forKey: "timeSelected")) : 10
         restartTimer()
     }
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        print(puzzleType)
+        print(difficultyLevel)
         
         //Choose which Keyboard to display & get height for display of inputTextField
         if puzzleType == "Math Equations" {
@@ -919,6 +921,7 @@ extension SolveAlarmViewController: CAAnimationDelegate {
     if successfullySolvedAllPuzzles {
         layer1.removeFromSuperlayer()
         layer0.removeFromSuperlayer()
+        ViewController().stopAlarmSound()
     }
     inputTextField.text = ""
     if !submitButtonClicked && !newButtonClicked {
