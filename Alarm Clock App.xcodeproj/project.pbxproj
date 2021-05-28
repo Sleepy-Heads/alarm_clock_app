@@ -24,6 +24,7 @@
 		FE37CC98264F1EF200E1EAB7 /* NotificationPublisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE37CC97264F1EF200E1EAB7 /* NotificationPublisher.swift */; };
 		FE64E642264C8B7700BE7B54 /* Defaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE64E641264C8B7700BE7B54 /* Defaults.swift */; };
 		FE819DF826431D1500167199 /* AlarmCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE819DF726431D1500167199 /* AlarmCell.swift */; };
+		FEE44315265F16B40077A14C /* buzzer.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = FEE44314265F16B40077A14C /* buzzer.mp3 */; };
 		FEFA1C6726432645000C7892 /* Alarm.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEFA1C6626432645000C7892 /* Alarm.swift */; };
 /* End PBXBuildFile section */
 
@@ -74,6 +75,7 @@
 		FE37CC97264F1EF200E1EAB7 /* NotificationPublisher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationPublisher.swift; sourceTree = "<group>"; };
 		FE64E641264C8B7700BE7B54 /* Defaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Defaults.swift; sourceTree = "<group>"; };
 		FE819DF726431D1500167199 /* AlarmCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmCell.swift; sourceTree = "<group>"; };
+		FEE44314265F16B40077A14C /* buzzer.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = buzzer.mp3; sourceTree = "<group>"; };
 		FEFA1C6626432645000C7892 /* Alarm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alarm.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -167,6 +169,7 @@
 				D0F5F44E2639CAE6009700EA /* SettingsViewController.swift */,
 				D0F5F4502639CC0C009700EA /* SolveAlarmViewController.swift */,
 				D0F5F4522639CC3C009700EA /* EditAlarmViewController.swift */,
+				FEE4431C265F35B80077A14C /* Alarms */,
 			);
 			path = "Alarm Clock App";
 			sourceTree = "<group>";
@@ -187,6 +190,14 @@
 				D0E9121E2637285400A55629 /* Info.plist */,
 			);
 			path = "Alarm Clock AppUITests";
+			sourceTree = "<group>";
+		};
+		FEE4431C265F35B80077A14C /* Alarms */ = {
+			isa = PBXGroup;
+			children = (
+				FEE44314265F16B40077A14C /* buzzer.mp3 */,
+			);
+			path = Alarms;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -299,6 +310,7 @@
 			files = (
 				D0E912072637285400A55629 /* LaunchScreen.storyboard in Resources */,
 				D0E912042637285400A55629 /* Assets.xcassets in Resources */,
+				FEE44315265F16B40077A14C /* buzzer.mp3 in Resources */,
 				D0E912022637285300A55629 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
