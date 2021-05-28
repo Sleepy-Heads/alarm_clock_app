@@ -33,6 +33,8 @@ class EditAlarmViewController: UIViewController {
     @IBOutlet weak var friButton: UIButton!
     @IBOutlet weak var satButton: UIButton!
     
+    private let notificationPublisher = NotificationPublisher()
+    
     let difficultyOptions = ["Easy", "Normal", "Hard"]
     let puzzleOptions = ["Math Equations", "Scrambled Word Sentence", "Scrambled Letter Sentence"]
     var puzzleDifficultyPickerView = UIPickerView()
@@ -99,12 +101,14 @@ class EditAlarmViewController: UIViewController {
         let toggle = true
         amOrPm = String(time.suffix(2))
         time.removeLast(3)
-        let alarm = Alarm(alarmName: name, alarmTime: time, alarmPeriod: amOrPm, alarmDays: week, alarmToggle: toggle, alarmPuzzleType: puzzleTextField.text!, alarmPuzzleDiff: difficultyTextField.text!)
+        let key = UUID().uuidString
+        let alarm = Alarm(alarmName: name, alarmTime: time, alarmPeriod: amOrPm, alarmDays: week, alarmToggle: toggle, alarmPuzzleType: puzzleTextField.text!, alarmPuzzleDiff: difficultyTextField.text!, alarmKey: key)
         Defaults.addAlarm(alarm: alarm)
+        notificationPublisher.sendNotification(alarm: alarm, badge: 1)
     }
     
     @IBAction func onCancel(_ sender: Any) {
-        dismiss(animated: true, completion: nil) // this should just cancel edit alarm, and go back to home screen
+        dismiss(animated: true, completion: nil)
     }
     
     @IBAction func sunSwitch(_ sender: Any) {
@@ -176,19 +180,6 @@ class EditAlarmViewController: UIViewController {
             self.satButton.backgroundColor = UIColor.white
         }
     }
-    
-    /*
-     
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    
-    */
-
 }
 
 extension EditAlarmViewController: UIPickerViewDataSource, UIPickerViewDelegate {
