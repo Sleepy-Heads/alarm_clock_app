@@ -8,20 +8,18 @@
 import Foundation
 import UIKit // this is for the badge
 import UserNotifications
+import AVFoundation
 
-class NotificationPublisher : NSObject {
+class NotificationPublisher : NSObject, UNUserNotificationCenterDelegate {
     
-    func sendNotification(title: String, subtitle: String, body: String, badge: Int?, delayInterval: Int?) {
+    var player: AVAudioPlayer?
+    
+    func sendNotification(alarm : Alarm, badge: Int?) {
+            
         let notificationContent = UNMutableNotificationContent()
-        notificationContent.title = title
-        notificationContent.subtitle = subtitle
-        notificationContent.body = body
-        
-        var delayTimeTrigger: UNTimeIntervalNotificationTrigger?
-        
-        if let delayInterval = delayInterval {
-            delayTimeTrigger = UNTimeIntervalNotificationTrigger(timeInterval: TimeInterval(delayInterval), repeats: false)
-        }
+        notificationContent.title = alarm.alarmName
+        notificationContent.subtitle = alarm.alarmTime + " " + alarm.alarmPeriod
+        notificationContent.body = "Click here to open the app and click the solve button!"
         
         if let badge = badge {
             var currentBadgeCount = UIApplication.shared.applicationIconBadgeNumber
@@ -33,42 +31,89 @@ class NotificationPublisher : NSObject {
         
         UNUserNotificationCenter.current().delegate = self
         
+        var hour = ""
+        if(alarm.alarmTime.count == 4){
+            hour = String(alarm.alarmTime.prefix(1))
+        } else {
+            hour = String(alarm.alarmTime.prefix(2))
+        }
         
-        //var dateComponents = DateComponents()
-        //dateComponents.hour = hour
-        //dateComponents.minute = minute
-        //let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true) // This will make an alarm at 10:30 every morning
-        let request = UNNotificationRequest(identifier: "TestLocalNotification", content: notificationContent, trigger: delayTimeTrigger) // replace trigger with delaytimetrigger and vice versa for exact time
+        let minute = String(alarm.alarmTime.suffix(2))
         
+        var intHour = Int(hour)!
+
+        if(alarm.alarmPeriod == "PM" && intHour != 12){
+            intHour += 12
+        } else if(alarm.alarmPeriod  == "AM" && intHour == 12) {
+            intHour = 0
+        }
         
-        UNUserNotificationCenter.current().add(request) { error in
-            if let error = error {
-                print(error.localizedDescription)
+        var dateComponents = DateComponents()
+        if(alarm.alarmDays.filter{$0}.count == 0) {
+            dateComponents.hour = intHour
+            dateComponents.minute = Int(minute)!
+            dateComponents.timeZone = .current
+            
+            let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true) // Repeating Alarm
+            let request = UNNotificationRequest(identifier: alarm.alarmKey, content: notificationContent, trigger: trigger) // replace trigger with delaytimetrigger and vice versa for exact time
+            
+            UNUserNotificationCenter.current().add(request) { error in
+                if let error = error {
+                    print(error.localizedDescription)
+                }
+            }
+        } else {
+            dateComponents.hour = intHour
+            dateComponents.minute = Int(minute)!
+            dateComponents.timeZone = .current
+           
+            let days = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"]
+            for i in alarm.alarmDays.enumerated() {
+                if(i.element){
+                    dateComponents.weekday = i.offset + 1
+                    
+                    let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)
+                    let request = UNNotificationRequest(identifier: alarm.alarmKey + days[i.offset], content: notificationContent, trigger: trigger)
+                    
+                    UNUserNotificationCenter.current().add(request) { error in
+                        if let error = error {
+                            print(error.localizedDescription)
+                        }
+                    }
+                }
             }
         }
     }
-}
 
-extension NotificationPublisher : UNUserNotificationCenterDelegate {
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        print("Notification is about to be presented")
+        print("Notification is about to be presented") // When application in foreground
+        let viewController:ViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ViewController") as! ViewController
+        viewController.playAlarmSound()
+        let date = Date()
+        let calendar = Calendar.current
+        var hour = calendar.component(.hour, from: date)
+        let minutes = calendar.component(.minute, from: date)
+        var amorpm = "AM"
+        if(hour >= 13 && hour != 24){
+            hour -= 12
+            amorpm = "PM"
+        }
+        let systemTime = "\(hour):\(minutes)\(amorpm)"
+        viewController.getPuzzleAndDifficulty(systemTime: systemTime)
         completionHandler([.badge, .sound, .alert])
     }
     
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
         let identifer = response.actionIdentifier
-        
-        let instanceOfMain = ViewController()
-        
+                
         switch identifer {
         
         case UNNotificationDismissActionIdentifier:
-            print("The notification was dismissed")
+            //print("The notification was dismissed")
             completionHandler()
             
         case UNNotificationDefaultActionIdentifier:
-            print("The User opened the app from the notification")
-            instanceOfMain.solveAlarm()
+            //print("The User opened the app from the notification")
             completionHandler()
             
         default:
