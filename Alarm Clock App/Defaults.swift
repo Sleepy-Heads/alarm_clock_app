@@ -11,7 +11,7 @@ struct Defaults {
     static var alarms = UserDefaults.standard.array(forKey: "alarms") ?? []
     
     static func addAlarm(alarm : Alarm) {
-        let alarmDic = ["name" : alarm.alarmName, "time" : alarm.alarmTime, "period" : alarm.alarmPeriod, "days" : alarm.alarmDays, "toggle" : alarm.alarmToggle, "puzzleType" : alarm.alarmPuzzleType, "puzzleDiff" : alarm.alarmPuzzleDiff] as [String : Any]
+        let alarmDic = ["name" : alarm.alarmName, "time" : alarm.alarmTime, "period" : alarm.alarmPeriod, "days" : alarm.alarmDays, "toggle" : alarm.alarmToggle, "puzzleType" : alarm.alarmPuzzleType, "puzzleDiff" : alarm.alarmPuzzleDiff, "key" : alarm.alarmKey] as [String : Any]
         
         Defaults.alarms.append(alarmDic)
         UserDefaults.standard.setValue(Defaults.alarms, forKey: "alarms")
@@ -28,7 +28,7 @@ struct Defaults {
     }
     
     static func updateAlarmObject(index : Int, alarm : Alarm) {
-        Defaults.alarms[index] = ["name" : alarm.alarmName, "time" : alarm.alarmTime, "period" : alarm.alarmPeriod, "days" : alarm.alarmDays, "toggle" : alarm.alarmToggle, "puzzleType" : alarm.alarmPuzzleType, "puzzleDiff" : alarm.alarmPuzzleDiff] as [String : Any]
+        Defaults.alarms[index] = ["name" : alarm.alarmName, "time" : alarm.alarmTime, "period" : alarm.alarmPeriod, "days" : alarm.alarmDays, "toggle" : alarm.alarmToggle, "puzzleType" : alarm.alarmPuzzleType, "puzzleDiff" : alarm.alarmPuzzleDiff, "key" : alarm.alarmKey] as [String : Any]
         UserDefaults.standard.setValue(Defaults.alarms, forKey: "alarms")
     }
     

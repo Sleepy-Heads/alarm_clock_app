@@ -15,6 +15,7 @@ struct Alarm {
     var alarmToggle : Bool
     var alarmPuzzleType : String
     var alarmPuzzleDiff : String
+    var alarmKey : String
     
     init(dictionary : NSDictionary) {
         alarmName = dictionary["name"] as! String
@@ -24,9 +25,10 @@ struct Alarm {
         alarmToggle = dictionary["toggle"] as! Bool
         alarmPuzzleType = dictionary["puzzleType"] as! String
         alarmPuzzleDiff = dictionary["puzzleDiff"] as! String
+        alarmKey = dictionary["key"] as! String
     }
     
-    init(alarmName: String, alarmTime: String, alarmPeriod: String, alarmDays: [Bool], alarmToggle: Bool, alarmPuzzleType: String, alarmPuzzleDiff: String) {
+    init(alarmName: String, alarmTime: String, alarmPeriod: String, alarmDays: [Bool], alarmToggle: Bool, alarmPuzzleType: String, alarmPuzzleDiff: String, alarmKey: String) {
         self.alarmName = alarmName
         self.alarmTime = alarmTime
         self.alarmPeriod = alarmPeriod
@@ -34,5 +36,6 @@ struct Alarm {
         self.alarmToggle = alarmToggle
         self.alarmPuzzleType = alarmPuzzleType
         self.alarmPuzzleDiff = alarmPuzzleDiff
+        self.alarmKey = alarmKey
     }
 }
