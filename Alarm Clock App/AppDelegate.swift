@@ -12,7 +12,6 @@ import Parse
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
-//    private let notificationPublisher = NotificationPublisher()
 
     private func requestNotificationAuthorization(application: UIApplication) {
         let center = UNUserNotificationCenter.current()
@@ -30,8 +29,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         requestNotificationAuthorization(application: application)
         
         let parseConfig = ParseClientConfiguration {
-                    $0.applicationId = "kfStOnaWAXNBPaf5TTW99bkmsN3zkQZ3aoc5XRoR" // <- UPDATE
-                    $0.clientKey = "QCSfoZC2UskYWY8Y0QVZNUcosWm13dlZAJo0MrdN" // <- UPDATE
+                    $0.applicationId = "kfStOnaWAXNBPaf5TTW99bkmsN3zkQZ3aoc5XRoR"
+                    $0.clientKey = "QCSfoZC2UskYWY8Y0QVZNUcosWm13dlZAJo0MrdN"
                     $0.server = "https://parseapi.back4app.com"
             }
             Parse.initialize(with: parseConfig)
