@@ -7,16 +7,26 @@
 
 import UIKit
 import UserNotifications
+import AVFoundation
+var player: AVAudioPlayer!
 
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet var sleepMode: UIView!
+    var sleepModeToggle = false
     
     var alarmsHomeScreen = Defaults.getAlarmObjects()
     private let notificationPublisher = NotificationPublisher()
     
+    var puzzleType = "Math Equations"
+    var difficultyLevel = "Easy"
+    
     //for military time feature
     let defaults = UserDefaults.standard
+    
+    // Notification Center
+    let center = UNUserNotificationCenter.current()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,12 +34,12 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         tableView.delegate = self
         tableView.dataSource = self
         tableView.tableFooterView = UIView()
+        tableView.backgroundColor = UIColor(named: "cantaloupe")
+        // Do any additional setup after loading the view.
         
-        
-        if defaults.bool(forKey: "darkModeToggleOn") {
-            overrideUserInterfaceStyle = .dark
-        }
-    
+        let TapGesture = UITapGestureRecognizer()
+        self.view.addGestureRecognizer(TapGesture)
+        TapGesture.addTarget(self, action: #selector(disableSleep))
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -48,15 +58,13 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        //print(alarmsHomeScreen)
-        
         let cell = tableView.dequeueReusableCell(withIdentifier: "AlarmCell") as! AlarmCell
         let alarm = alarmsHomeScreen[indexPath.row]
         
         cell.selectionStyle = .none
         cell.alarmTime.text = alarm.alarmTime
         cell.alarmPeriod.text = alarm.alarmPeriod
-    
+        
         if(alarm.alarmDays.filter{$0}.count == 0){
             cell.alarmName.text = alarm.alarmName
         } else if(alarm.alarmDays.filter{$0}.count == 7) {
@@ -67,42 +75,19 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             cell.alarmName.text = alarm.alarmName + ", every weekday"
         } else if(alarm.alarmDays.filter{$0}.count == 1){
             var day = ""
+            let longDays = [" Sunday", " Monday", " Tuesday", " Wednesday", " Thursday", " Friday", "Saturday"]
             for i in alarm.alarmDays.enumerated() {
-                if(i.offset == 0 && i.element){
-                    day = " Sunday"
-                } else if(i.offset == 1 && i.element){
-                    day = " Monday"
-                } else if(i.offset == 2 && i.element){
-                    day = " Tuesday"
-                } else if(i.offset == 3 && i.element){
-                    day = " Wednesday"
-                } else if(i.offset == 4 && i.element){
-                    day = " Thursday"
-                } else if(i.offset == 5 && i.element){
-                    day = " Friday"
-                } else if(i.offset == 6 && i.element){
-                    day = " Saturday"
+                if(i.element){
+                    day = longDays[i.offset]
                 }
             }
-            
             cell.alarmName.text = alarm.alarmName + ", every" + day
         } else {
             var days = ""
+            let shortDays = [" Sun", " Mon", " Tue", " Wed", " Thu", " Fri", " Sat"]
             for i in alarm.alarmDays.enumerated() {
-                if(i.offset == 0 && i.element){
-                    days += " Sun"
-                } else if(i.offset == 1 && i.element){
-                    days += " Mon"
-                } else if(i.offset == 2 && i.element){
-                    days += " Tue"
-                } else if(i.offset == 3 && i.element){
-                    days += " Wed"
-                } else if(i.offset == 4 && i.element){
-                    days += " Thu"
-                } else if(i.offset == 5 && i.element){
-                    days += " Fri"
-                } else if(i.offset == 6 && i.element){
-                    days += " Sat"
+                if(i.element){
+                    days += shortDays[i.offset]
                 }
             }
             cell.alarmName.text = alarm.alarmName + "," + days
@@ -147,19 +132,56 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     @objc func switchChanged(_ sender: UISwitch!) {
+        print(sender.tag)
         if(alarmsHomeScreen[sender.tag].alarmToggle){
             alarmsHomeScreen[sender.tag].alarmToggle = false
             Defaults.updateAlarmObject(index: sender.tag, alarm: alarmsHomeScreen[sender.tag])
+            
+            // Alarm won't trigger notification
+            if(self.alarmsHomeScreen[sender.tag].alarmDays.filter{$0}.count == 0) {
+                self.center.removeDeliveredNotifications(withIdentifiers: [self.alarmsHomeScreen[sender.tag].alarmKey])
+                self.center.removePendingNotificationRequests(withIdentifiers: [self.alarmsHomeScreen[sender.tag].alarmKey])
+            } else {
+                let days = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"]
+                for i in self.alarmsHomeScreen[sender.tag].alarmDays.enumerated() {
+                    if(i.element){
+                        self.center.removeDeliveredNotifications(withIdentifiers: [self.alarmsHomeScreen[sender.tag].alarmKey + days[i.offset]])
+                        self.center.removePendingNotificationRequests(withIdentifiers: [self.alarmsHomeScreen[sender.tag].alarmKey + days[i.offset]])
+                    }
+                }
+            }
         } else {
             alarmsHomeScreen[sender.tag].alarmToggle = true
             Defaults.updateAlarmObject(index: sender.tag, alarm: alarmsHomeScreen[sender.tag])
+            notificationPublisher.sendNotification(alarm: alarmsHomeScreen[sender.tag], badge: 1)
         }
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let delete = UIContextualAction(style: .destructive, title: "Delete") { (contextualAction, view, actionPerformed: (Bool) -> Void) in
+            
+            // Deletes the alarm from local notifications
+            if(self.alarmsHomeScreen[indexPath.row].alarmDays.filter{$0}.count == 0) {
+                self.center.removeDeliveredNotifications(withIdentifiers: [self.alarmsHomeScreen[indexPath.row].alarmKey])
+                self.center.removePendingNotificationRequests(withIdentifiers: [self.alarmsHomeScreen[indexPath.row].alarmKey])
+            } else {
+                let days = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"]
+                for i in self.alarmsHomeScreen[indexPath.row].alarmDays.enumerated() {
+                    if(i.element){
+                        self.center.removeDeliveredNotifications(withIdentifiers: [self.alarmsHomeScreen[indexPath.row].alarmKey + days[i.offset]])
+                        self.center.removePendingNotificationRequests(withIdentifiers: [self.alarmsHomeScreen[indexPath.row].alarmKey + days[i.offset]])
+                    }
+                }
+            }
+            
+            // Deletes alarm in alarmsHomeScreen array
             self.alarmsHomeScreen.remove(at: indexPath.row)
+            //print(self.alarmsHomeScreen.count)
+            
+            // Deletes alarm in defaults
             Defaults.deleteAlarmObject(index: indexPath.row)
+            
+            // Deletes alarm from tableview
             tableView.deleteRows(at: [indexPath], with: .automatic)
             actionPerformed(true)
         }
@@ -167,27 +189,49 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         return UISwipeActionsConfiguration(actions: [delete])
     }
     
-    @IBAction func testAlert(_ sender: Any) {
-        notificationPublisher.sendNotification(title: "Wake Up", subtitle: "11:44 PM", body: "Click here to solve puzzle and turn alarm off!", badge: 1, delayInterval: 5)
-        print("Button pressed")
+
+    @IBAction func enableSleep(_ sender: Any) {
+        UIApplication.shared.isIdleTimerDisabled = true
+        sleepMode.bounds = self.view.bounds
+        if(sleepModeToggle == false){
+            animateIn(desiredView: sleepMode)
+            sleepModeToggle = true
+        }
     }
     
-    func solveAlarm(){
-          print("We are in the solve alarm")
+    @objc func disableSleep(){
+        if(sleepModeToggle == true){
+            UIApplication.shared.isIdleTimerDisabled = false
+            sleepMode.bounds = self.view.bounds
+            animateOut(desiredView: sleepMode)
+            sleepModeToggle = false
+        }
     }
     
-    /*
-     
-    // MARK: - Navigation
-     
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    func playAlarmSound() {
+        let urlString = Bundle.main.path(forResource: "buzzer", ofType: "mp3")
+        do {
+            try AVAudioSession.sharedInstance().setMode(.default)
+            try AVAudioSession.sharedInstance().setActive(true, options: .notifyOthersOnDeactivation)
+                
+            guard let urlString = urlString else { return }
+
+            player = try AVAudioPlayer(contentsOf: URL(fileURLWithPath: urlString))
+                
+            guard let player = player else { return }
+            player.numberOfLoops = -1
+            player.play()
+        } catch {
+            print(error)
+        }
     }
-     
-    */
     
+    func stopAlarmSound() {
+        if let player = player, player.isPlaying {
+            player.stop()
+        }
+    }
+            
     //needed for military time feature
     func convertStringHourToInt(_ time: String) -> Int {
         let length : Int = time.count
@@ -213,6 +257,73 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
         return minutes
     }
+    
+    // Animate in a specified view
+    func animateIn(desiredView: UIView) {
+        let backgroundView = self.view!
+
+        // attach our desired view to the screen (self.view/backgroundView)
+        backgroundView.addSubview(desiredView)
+
+        // Sets the views scaling to be 120%
+        desiredView.transform = CGAffineTransform(scaleX: 1.2, y: 1.2)
+        desiredView.alpha = 0
+        desiredView.center = backgroundView.center
+
+        // animate the effect
+        UIView.animate(withDuration: 0.3, animations: {
+            desiredView.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
+            desiredView.alpha = 1
+        })
+    }
+
+    // animate out a specified view
+    func animateOut(desiredView: UIView) {
+        // animate the effect
+        UIView.animate(withDuration: 0.3, animations: {
+            desiredView.transform = CGAffineTransform(scaleX: 1.2, y: 1.2)
+            desiredView.alpha = 0
+        }, completion: { _ in
+            desiredView.removeFromSuperview()
+        })
+    }
+    
+    func getPuzzleAndDifficulty(systemTime : String) {
+        for alarm in alarmsHomeScreen.enumerated(){
+            let alarm = alarmsHomeScreen[alarm.offset]
+            let currentAlarm = alarm.alarmTime + alarm.alarmPeriod
+            print(currentAlarm, " ", systemTime)
+            if(currentAlarm == systemTime){
+                print("found it")
+                puzzleType = alarm.alarmPuzzleType
+                difficultyLevel = alarm.alarmPuzzleDiff
+            }
+        }
+        
+        print("In func: ", puzzleType)
+        print("In func: ", difficultyLevel)
+    }
+    
+    func getPuzzleType() -> String {
+        print("in get:", puzzleType)
+        return puzzleType
+    }
+    
+    func getDifficultyLevel() -> String {
+        print("in 2nd get:", difficultyLevel)
+        return difficultyLevel
+    }
+    
+//    // In a storyboard-based application, you will often want to do a little preparation before navigation
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        // Get the new view controller using segue.destination.
+//        // Pass the selected object to the new view controller.
+//        print("Before: ", puzzleType)
+//        print("Before: ", difficultyLevel)
+//        let SolveAlarmViewController = segue.destination as? ViewController
+//        SolveAlarmViewController?.puzzleType = puzzleType
+//        SolveAlarmViewController?.difficultyLevel = difficultyLevel
+//    }
 }
 
 
