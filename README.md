@@ -1,7 +1,7 @@
 Original App Design Project - README Template
 ===
 
-# Alarm Clock App (Name Pending)
+# Sleepyhead
 
 ## Table of Contents
 1. [Overview](#Overview)
