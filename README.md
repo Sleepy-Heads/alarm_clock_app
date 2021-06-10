@@ -1,6 +1,3 @@
-Original App Design Project - README Template
-===
-
 # Sleepyhead
 
 ## Table of Contents
@@ -12,6 +9,10 @@ Original App Design Project - README Template
 ## Overview
 ### Description
 An alarm clock app that requires a puzzle or math problem to turn it off. The purpose of this app is to wake the brain up a bit so you don't just hit snooze and go back to bed.
+
+## Video of Final Product
+
+Here is a link to a YouTube video of the app in use: https://www.youtube.com/watch?v=aItnpBlTDtc
 
 ## Sprint 4
 
