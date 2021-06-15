@@ -175,4 +175,4 @@ difficulty | Array | What difficulty the puzzle will be
   ```
 * Settings Screen
 
-
+GIFs created with [RecordIt](https://recordit.co/).
